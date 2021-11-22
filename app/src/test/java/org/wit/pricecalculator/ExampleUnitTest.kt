@@ -1,4 +1,4 @@
-package org.wit.placemark
+package org.wit.pricecalculator
 
 import org.junit.Test
 

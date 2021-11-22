@@ -1,4 +1,4 @@
-package org.wit.placemark.activities
+package org.wit.pricecalculator.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,22 +6,22 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.wit.placemark.R
-import org.wit.placemark.adapters.PlacemarkAdapter
-import org.wit.placemark.adapters.PlacemarkListener
-import org.wit.placemark.databinding.ActivityPlacemarkListBinding
-import org.wit.placemark.main.MainApp
-import org.wit.placemark.models.PlacemarkModel
+import org.wit.pricecalculator.R
+import org.wit.pricecalculator.adapters.MaterialAdapter
+import org.wit.pricecalculator.adapters.MaterialListiner
+import org.wit.pricecalculator.databinding.ActivityMaterialListBinding
+import org.wit.pricecalculator.main.MainApp
+import org.wit.pricecalculator.models.MaterialsModel
 
 
-class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
+class MaterialListActivity : AppCompatActivity(), MaterialListiner {
 
     lateinit var app: MainApp
-    private lateinit var binding: ActivityPlacemarkListBinding
+    private lateinit var binding: ActivityMaterialListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityPlacemarkListBinding.inflate(layoutInflater)
+        binding = ActivityMaterialListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
@@ -29,7 +29,7 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = PlacemarkAdapter(app.placemarks.findAll(),this)
+        binding.recyclerView.adapter = MaterialAdapter(app.materials.findAll(),this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -38,19 +38,18 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        print("pee")
         when (item.itemId) {
             R.id.item_add -> {
-                val launcherIntent = Intent(this, PlacemarkActivity::class.java)
+                val launcherIntent = Intent(this, MaterialActivity::class.java)
                 startActivityForResult(launcherIntent,0)
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onPlacemarkClick(placemark: PlacemarkModel) { //Clicking on placemark takes us to placemark edit
-        val launcherIntent = Intent(this, PlacemarkActivity::class.java)
-        launcherIntent.putExtra("placemark_edit", placemark)
+    override fun onPlacemarkClick(materials: MaterialsModel) { //Clicking on placemark takes us to placemark edit
+        val launcherIntent = Intent(this, MaterialActivity::class.java)
+        launcherIntent.putExtra("material_edit", materials)
         startActivityForResult(launcherIntent,0)
     }
 }

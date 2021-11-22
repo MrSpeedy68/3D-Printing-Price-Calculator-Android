@@ -1,43 +1,46 @@
-package org.wit.placemark.activities
+package org.wit.pricecalculator.activities
 
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import org.wit.placemark.R
-import org.wit.placemark.databinding.ActivityPlacemarkBinding
-import org.wit.placemark.main.MainApp
-import org.wit.placemark.models.PlacemarkModel
-import timber.log.Timber.i
+import org.wit.pricecalculator.R
+import org.wit.pricecalculator.databinding.ActivityMaterialBinding
+import org.wit.pricecalculator.main.MainApp
+import org.wit.pricecalculator.models.MaterialsModel
 
 
-class PlacemarkActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityPlacemarkBinding
-    var placemark = PlacemarkModel()
+class MaterialActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMaterialBinding
+    var material = MaterialsModel()
     lateinit var app: MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityPlacemarkBinding.inflate(layoutInflater)
+        binding = ActivityMaterialBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
         app = application as MainApp
 
-        if (intent.hasExtra("placemark_edit")) {
-            placemark = intent.extras?.getParcelable("placemark_edit")!!
-            binding.placemarkTitle.setText(placemark.title)
-            binding.placemarkDescription.setText(placemark.description)
-            binding.btnAdd.text = getString(R.string.button_savePlacemark)
+        if (intent.hasExtra("material_edit")) {
+            material = intent.extras?.getParcelable("material_edit")!!
+            binding.materialName.setText(material.name)
+            binding.materialType.setText(material.type)
+            binding.materialWeight.setText(material.weight.toString())
+            binding.materialPrice.setText(material.price.toString())
+
+            binding.btnAdd.text = getString(R.string.button_saveMaterial)
 
             //app.placemarks.update(placemark)
             binding.btnAdd.setOnClickListener() {
-                placemark.title = binding.placemarkTitle.text.toString()
-                placemark.description = binding.placemarkDescription.text.toString()
-                if (placemark.title.isNotEmpty()) {
-                    app.placemarks.update(placemark)
+                material.name = binding.materialName.text.toString()
+                material.type = binding.materialType.text.toString()
+                material.weight = binding.materialWeight.text.toString().toInt()
+                material.price = binding.materialPrice.text.toString().toFloat()
+                if (material.name.isNotEmpty()) {
+                    app.materials.update(material)
                     //app.placemarks.create(placemark.copy())
                     setResult(RESULT_OK)
                     finish()
@@ -52,10 +55,12 @@ class PlacemarkActivity : AppCompatActivity() {
         }
         else {
             binding.btnAdd.setOnClickListener() {
-                placemark.title = binding.placemarkTitle.text.toString()
-                placemark.description = binding.placemarkDescription.text.toString()
-                if (placemark.title.isNotEmpty()) {
-                    app.placemarks.create(placemark.copy())
+                material.name = binding.materialName.text.toString()
+                material.type = binding.materialType.text.toString()
+                material.weight = binding.materialWeight.text.toString().toInt()
+                material.price = binding.materialPrice.text.toString().toFloat()
+                if (material.name.isNotEmpty()) {
+                    app.materials.create(material.copy())
                     setResult(RESULT_OK)
                     finish()
                 }
@@ -71,7 +76,7 @@ class PlacemarkActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_placemark, menu)
+        menuInflater.inflate(R.menu.menu_material, menu)
         return super.onCreateOptionsMenu(menu)
     }
 

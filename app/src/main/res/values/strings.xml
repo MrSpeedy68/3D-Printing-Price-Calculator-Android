@@ -1,10 +1,13 @@
 <resources>
-    <string name="app_name">Placemark</string>
-    <string name="button_addPlacemark">Add Placemark</string>
-    <string name="button_savePlacemark">Save Placemark</string>
-    <string name="hint_placemarkTitle">Placemark Title</string>
-    <string name="hint_placemarkDescription">Placemark Description</string>
-    <string name="title_activity_placemark_list">PlacemarkListActivity</string>
+    <string name="app_name">3D Printing Price Calculator</string>
+    <string name="button_addMaterial">Add Material</string>
+    <string name="button_saveMaterial">Save Material</string>
+    <string name="hint_materialName">Material Name</string>
+    <string name="hint_materialType">Material Type</string>
+    <string name="hint_materialWeight">Material Weight</string>
+    <string name="hint_materialPrice">Material Price</string>
+
+    <string name="title_activity_Material_list">MaterialListActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -14,8 +17,8 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
-    <string name="menu_addPlacemark">Add</string>
-    <string name="menu_cancelPlacemark">Cancel</string>
+    <string name="menu_addMaterial">Add</string>
+    <string name="menu_cancelMaterial">Cancel</string>
 
     <string name="no_title">Name and Description Required</string>
 

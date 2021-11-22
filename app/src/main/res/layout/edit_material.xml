@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.wit.placemark.activities.PlacemarkActivity">
+    tools:context="org.wit.pricecalculator.activities.MaterialActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -41,12 +41,12 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/placemarkTitle"
+                    android:id="@+id/materialName"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_margin="8dp"
                     android:autofillHints="hint"
-                    android:hint="@string/hint_placemarkTitle"
+                    android:hint="@string/hint_materialName"
                     android:inputType="text"
                     android:maxLength="25"
                     android:maxLines="1"
@@ -54,13 +54,39 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
                 <EditText
-                    android:id="@+id/placemarkDescription"
+                    android:id="@+id/materialType"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_margin="8dp"
                     android:autofillHints="hint"
-                    android:hint="@string/hint_placemarkDescription"
+                    android:hint="@string/hint_materialType"
                     android:inputType="text"
+                    android:maxLength="25"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
+                <EditText
+                    android:id="@+id/materialWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_margin="8dp"
+                    android:autofillHints="hint"
+                    android:hint="@string/hint_materialWeight"
+                    android:inputType="number"
+                    android:maxLength="25"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
+                <EditText
+                    android:id="@+id/materialPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_margin="8dp"
+                    android:autofillHints="hint"
+                    android:hint="@string/hint_materialPrice"
+                    android:inputType="numberDecimal"
                     android:maxLength="25"
                     android:maxLines="1"
                     android:padding="8dp"
@@ -76,7 +102,7 @@
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
                     android:stateListAnimator="@null"
-                    android:text="@string/button_addPlacemark"
+                    android:text="@string/button_saveMaterial"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
             </LinearLayout>

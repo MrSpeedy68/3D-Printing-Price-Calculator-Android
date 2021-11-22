@@ -1,18 +1,17 @@
-package org.wit.placemark.main
+package org.wit.pricecalculator.main
 
 import android.app.Application
-import org.wit.placemark.models.PlacemarkMemStore
-// import org.wit.placemark.models.PlacemarkModel
+import org.wit.pricecalculator.models.MaterialMemStore
 import timber.log.Timber
 import timber.log.Timber.i
 
 class MainApp : Application() {
 
-    val placemarks = PlacemarkMemStore()
+    val materials = MaterialMemStore()
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        i("Placemark started")
+        i("3DPPC started")
     }
 }

@@ -13,19 +13,31 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/placemarkTitle"
+            android:id="@+id/materialName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:textSize="30sp"
-            tools:text="A Title" />
+            tools:text="A Name" />
 
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/materialType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/placemarkTitle"
-            tools:text="A Description" />
+            android:layout_below="@id/materialName"
+            tools:text="A Type" />
+        <TextView
+            android:id="@+id/materialWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/materialType"
+            tools:text="A Weight" />
+        <TextView
+            android:id="@+id/materialPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/materialWeight"
+            tools:text="A Price" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
