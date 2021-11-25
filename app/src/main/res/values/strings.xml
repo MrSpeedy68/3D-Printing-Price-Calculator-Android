@@ -22,4 +22,7 @@
 
     <string name="no_title">Name and Description Required</string>
 
+    <string name="button_addImage"> Add Image </string>
+    <string name="select_material_image">Select placemark image</string>
+
 </resources>

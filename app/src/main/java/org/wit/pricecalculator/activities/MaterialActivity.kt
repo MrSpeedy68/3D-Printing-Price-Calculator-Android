@@ -1,20 +1,28 @@
 package org.wit.pricecalculator.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import org.wit.pricecalculator.R
 import org.wit.pricecalculator.databinding.ActivityMaterialBinding
+import org.wit.pricecalculator.helpers.showImagePicker
 import org.wit.pricecalculator.main.MainApp
 import org.wit.pricecalculator.models.MaterialsModel
+import timber.log.Timber.i
 
 
 class MaterialActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMaterialBinding
     var material = MaterialsModel()
     lateinit var app: MainApp
+
+    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +31,7 @@ class MaterialActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
+
         app = application as MainApp
 
         if (intent.hasExtra("material_edit")) {
@@ -33,6 +42,10 @@ class MaterialActivity : AppCompatActivity() {
             binding.materialWeight.setText(material.weight.toString())
             binding.materialPrice.setText(material.price.toString())
             binding.btnAdd.text = getString(R.string.button_saveMaterial)
+
+            Picasso.get()
+                .load(material.image)
+                .into(binding.materialImage)
         }
 
         binding.btnAdd.setOnClickListener() {
@@ -50,9 +63,17 @@ class MaterialActivity : AppCompatActivity() {
                     app.materials.create(material.copy())
                 }
             }
+            i("add Button Pressed: $material")
             setResult(RESULT_OK)
             finish()
         }
+
+        binding.chooseImage.setOnClickListener {
+            //i("Select image")
+            showImagePicker(imageIntentLauncher)
+        }
+
+        registerImagePickerCallback()
 
     }
 
@@ -66,5 +87,24 @@ class MaterialActivity : AppCompatActivity() {
             R.id.item_cancel -> { finish() }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun registerImagePickerCallback() {
+        imageIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when(result.resultCode){
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Result ${result.data!!.data}")
+                            material.image = result.data!!.data!!
+                            Picasso.get()
+                                .load(material.image)
+                                .into(binding.materialImage)
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
     }
 }
