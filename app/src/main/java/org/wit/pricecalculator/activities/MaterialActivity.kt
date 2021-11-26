@@ -42,6 +42,7 @@ class MaterialActivity : AppCompatActivity() {
             binding.materialWeight.setText(material.weight.toString())
             binding.materialPrice.setText(material.price.toString())
             binding.btnAdd.text = getString(R.string.button_saveMaterial)
+            binding.chooseImage.text = getString(R.string.button_changeImage)
 
             Picasso.get()
                 .load(material.image)

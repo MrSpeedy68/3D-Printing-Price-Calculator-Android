@@ -3,11 +3,11 @@ package org.wit.pricecalculator.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.wit.pricecalculator.databinding.CardPlacemarkBinding
+import org.wit.pricecalculator.databinding.CardMaterialBinding
 import org.wit.pricecalculator.models.MaterialsModel
 
 interface MaterialListiner {
-    fun onPlacemarkClick(materials: MaterialsModel)
+    fun onMaterialClick(materials: MaterialsModel)
 }
 
 class MaterialAdapter constructor(private var materials: List<MaterialsModel>,
@@ -15,20 +15,20 @@ class MaterialAdapter constructor(private var materials: List<MaterialsModel>,
     RecyclerView.Adapter<MaterialAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
-        val binding = CardPlacemarkBinding
+        val binding = CardMaterialBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
 
         return MainHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
-        val placemark = materials[holder.adapterPosition]
-        holder.bind(placemark, listener)
+        val material = materials[holder.adapterPosition]
+        holder.bind(material, listener)
     }
 
     override fun getItemCount(): Int = materials.size
 
-    class MainHolder(private val binding : CardPlacemarkBinding) :
+    class MainHolder(private val binding : CardMaterialBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(materials: MaterialsModel, listener: MaterialListiner) {
@@ -37,7 +37,7 @@ class MaterialAdapter constructor(private var materials: List<MaterialsModel>,
             binding.materialWeight.text = materials.weight.toString()
             binding.materialPrice.text = materials.price.toString()
 
-            binding.root.setOnClickListener { listener.onPlacemarkClick(materials) }
+            binding.root.setOnClickListener { listener.onMaterialClick(materials) }
         }
     }
 }

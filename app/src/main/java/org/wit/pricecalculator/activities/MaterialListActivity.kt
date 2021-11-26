@@ -47,7 +47,7 @@ class MaterialListActivity : AppCompatActivity(), MaterialListiner {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onPlacemarkClick(materials: MaterialsModel) { //Clicking on placemark takes us to placemark edit
+    override fun onMaterialClick(materials: MaterialsModel) { //Clicking on material takes us to material edit
         val launcherIntent = Intent(this, MaterialActivity::class.java)
         launcherIntent.putExtra("material_edit", materials)
         startActivityForResult(launcherIntent,0)

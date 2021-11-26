@@ -29,6 +29,7 @@ class MaterialMemStore : MaterialStore {
             foundMaterial.type = material.type
             foundMaterial.weight = material.weight
             foundMaterial.price = material.price
+            foundMaterial.image = material.image
             logAll()
         }
     }
