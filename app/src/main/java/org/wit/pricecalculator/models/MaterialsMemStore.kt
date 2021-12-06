@@ -1,11 +1,11 @@
 package org.wit.pricecalculator.models
 
 import timber.log.Timber.i
+import java.util.*
+import kotlin.collections.ArrayList
 
-var lastId = 0L
-
-internal fun getId(): Long {
-    return lastId++
+internal fun generateRandomIdMaterial(): Long {
+    return Random().nextLong()
 }
 
 class MaterialMemStore : MaterialStore {
@@ -17,7 +17,7 @@ class MaterialMemStore : MaterialStore {
     }
 
     override fun create(material: MaterialsModel) {
-        material.id = getId()
+        material.id = generateRandomIdMaterial()
         materials.add(material)
         logAll()
     }

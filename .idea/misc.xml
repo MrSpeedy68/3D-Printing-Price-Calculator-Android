@@ -25,9 +25,12 @@
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/fragment_second.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/menu/menu_main.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/menu/menu_placemark.xml" value="0.41354166666666664" />
+        <entry key="..\:/Users/mrspe/OneDrive - Waterford Institute of Technology/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/activity_material_list.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mrspe/OneDrive - Waterford Institute of Technology/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/menu/menu_main.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
