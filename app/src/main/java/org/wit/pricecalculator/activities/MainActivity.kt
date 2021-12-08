@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openPrintersActivity() {
-        val launcherIntent = Intent(this, PrinterActivity::class.java)
+        val launcherIntent = Intent(this, PrinterListActivity::class.java)
         startActivity(launcherIntent)
     }
 
