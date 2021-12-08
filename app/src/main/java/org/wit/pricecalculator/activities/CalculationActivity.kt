@@ -1,8 +1,11 @@
 package org.wit.pricecalculator.activities
 
 import android.content.Intent
+import android.graphics.Insets.add
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import org.wit.pricecalculator.R
 import org.wit.pricecalculator.main.MainApp
@@ -14,11 +17,39 @@ class CalculationActivity : AppCompatActivity(){
 
     lateinit var app: MainApp
 
+    var material = MaterialsModel()
+
+    private lateinit var matSpinner: Spinner
+    private lateinit var materialAdapter: ArrayAdapter<MaterialsModel>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calculation)
 
+        app = application as MainApp
+
+        matSpinner = findViewById(R.id.materialSpinner)
+
+        val materialObjects = app.materials.findAll()
+
+        materialAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, materialObjects)
+
+        matSpinner.adapter = materialAdapter
+
     }
+
+
+//    private fun getMaterialObjects(): ArrayList<MaterialsModel> {
+//
+//
+//        val materialObjects = app.materials.findAll()
+//
+//        materialObjects.apply {
+//            add(MaterialsModel(1,"ESUN BLUE", "PLA", 1000,25.50))
+//        }
+//
+//    }
+
 
     //Calculates the total filament cost by getting cost per gram and multiplying by total grams used
     fun TotalFilamentCost(aMat: MaterialsModel, modelWeight: Int) : Float {

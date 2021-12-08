@@ -40,6 +40,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:text="@string/spinner_User" />
                 <Spinner
                     android:id="@+id/userSpinner"
                     android:layout_width="match_parent"
@@ -48,12 +52,20 @@
                     android:hint="@string/hint_modelWeight"
                     />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:text="@string/spinner_Material" />
                 <Spinner
                     android:id="@+id/materialSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_gravity="center" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:text="@string/spinner_Printer" />
                 <Spinner
                     android:id="@+id/printerSpinner"
                     android:layout_width="match_parent"
@@ -105,9 +117,42 @@
                     android:textSize="14sp" />
 
                 <!-- Total Material Cost -->
+                <TextView
+                    android:id="@+id/MatCostText"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:text="@string/text_MatCost" />
+
                 <!-- Total Energy Cost -->
+                <TextView
+                    android:id="@+id/EnergyCostText"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:text="@string/text_EnergyCost" />
                 <!-- Total Printer Cost -->
+                <TextView
+                    android:id="@+id/PrinterCostText"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:text="@string/text_PrinterCost" />
                 <!-- Total Overall Printing Cost -->
+                <TextView
+                    android:id="@+id/TotalCostText"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:text="@string/text_TotalCost" />
+
+                <Button
+                    android:id="@+id/btnCalculate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@color/colorAccent"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/button_calculation"
+                    android:textColor="#212121"
+                    android:textSize="16sp" />
 
             </LinearLayout>
         </ScrollView>

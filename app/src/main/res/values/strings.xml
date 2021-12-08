@@ -65,5 +65,13 @@
     <string name="hint_hours">Hours</string>
     <string name="hint_minutes">Minutes</string>
 
+    <string name="text_MatCost">Total Material Cost: </string>
+    <string name="text_EnergyCost">Total Energy Cost: </string>
+    <string name="text_PrinterCost">Total Printer Cost: </string>
+    <string name="text_TotalCost">Total Printing Cost: </string>
+
+    <string name="spinner_User">Choose a User Profile</string>
+    <string name="spinner_Material">Choose a Material Profile</string>
+    <string name="spinner_Printer">Choose a Printer Profile</string>
 
 </resources>
