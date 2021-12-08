@@ -23,11 +23,29 @@ class MainActivity : AppCompatActivity() {
             openMaterialsActivity()
         }
 
+        printersButton.setOnClickListener {
+            openPrintersActivity()
+        }
+
+        usersButton.setOnClickListener {
+            openUserActivity()
+        }
+
 
     }
 
     private fun openMaterialsActivity() {
         val launcherIntent = Intent(this, MaterialListActivity::class.java)
+        startActivity(launcherIntent)
+    }
+
+    private fun openPrintersActivity() {
+        val launcherIntent = Intent(this, PrinterActivity::class.java)
+        startActivity(launcherIntent)
+    }
+
+    private fun openUserActivity() {
+        val launcherIntent = Intent(this, UserActivity::class.java)
         startActivity(launcherIntent)
     }
 }
