@@ -60,4 +60,10 @@
     <string name="button_userMenu">User Settings</string>
     <string name="button_calculation">Calculate</string>
 
+    <!-- Calculation Activity -->
+    <string name="hint_modelWeight">Model Weight</string>
+    <string name="hint_hours">Hours</string>
+    <string name="hint_minutes">Minutes</string>
+
+
 </resources>

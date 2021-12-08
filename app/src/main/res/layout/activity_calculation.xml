@@ -40,57 +40,74 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-
-                <Button
-                    android:id="@+id/btnMaterials"
+                <Spinner
+                    android:id="@+id/userSpinner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@color/colorAccent"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/button_materialMenu"
-                    android:textColor="#212121"
-                    android:textSize="16sp" />
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:hint="@string/hint_modelWeight"
+                    />
 
-                <Button
-                    android:id="@+id/btnPrinters"
+                <Spinner
+                    android:id="@+id/materialSpinner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@color/colorAccent"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:stateListAnimator="@null"
-                    android:text="@string/button_printerMenu"
-                    android:textColor="#212121"
-                    android:textSize="16sp" />
+                    android:layout_height="48dp"
+                    android:layout_gravity="center" />
 
-                <Button
-                    android:id="@+id/btnUsers"
+                <Spinner
+                    android:id="@+id/printerSpinner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@color/colorAccent"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:stateListAnimator="@null"
-                    android:text="@string/button_userMenu"
-                    android:textColor="#212121"
-                    android:textSize="16sp" />
+                    android:layout_height="48dp"
+                    android:layout_gravity="center" />
 
-                <Button
-                    android:id="@+id/btnCalc"
+
+
+                <EditText
+                    android:id="@+id/modelWeight"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@color/colorAccent"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:stateListAnimator="@null"
-                    android:text="@string/button_calculation"
-                    android:textColor="#212121"
-                    android:textSize="16sp" />
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:autofillHints="hint"
+                    android:hint="@string/hint_modelWeight"
+                    android:inputType="number"
+                    android:maxLength="25"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/timeHours"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:autofillHints="hint"
+                    android:hint="@string/hint_hours"
+                    android:inputType="number"
+                    android:maxLength="25"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/timeMinutes"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:autofillHints="hint"
+                    android:hint="@string/hint_minutes"
+                    android:inputType="number"
+                    android:maxLength="25"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
+
+                <!-- Total Material Cost -->
+                <!-- Total Energy Cost -->
+                <!-- Total Printer Cost -->
+                <!-- Total Overall Printing Cost -->
 
             </LinearLayout>
         </ScrollView>
