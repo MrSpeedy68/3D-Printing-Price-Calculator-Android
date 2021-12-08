@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/mrspe/.gradle/caches/transforms-3/4a3c4a60ea08ae0d4dcb9b792252c177/transformed/material-1.3.0/res/drawable/material_ic_edit_black_24dp.xml" value="0.5135416666666667" />
         <entry key="..\:/Users/mrspe/Desktop/Android_Projects/Placemark/app/src/main/res/layout/activity_placemark.xml" value="0.5359375" />
         <entry key="..\:/Users/mrspe/Desktop/Android_Projects/Placemark/app/src/main/res/layout/activity_placemark_list.xml" value="0.44479166666666664" />
         <entry key="..\:/Users/mrspe/Desktop/Android_Projects/Placemark/app/src/main/res/layout/card_placemark.xml" value="0.33177083333333335" />
@@ -14,9 +15,10 @@
         <entry key="..\:/Users/mrspe/Desktop/Android_Projects/Placemark/app/src/main/res/menu/menu_placemark.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/activity_main.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/activity_material.xml" value="0.33" />
-        <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/activity_material_list.xml" value="0.10462962962962963" />
+        <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/activity_material_list.xml" value="0.33" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/activity_placemark.xml" value="0.30213903743315507" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/activity_placemark_list.xml" value="0.317481884057971" />
+        <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/activity_printer.xml" value="0.4973958333333333" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/activity_printer_list.xml" value="0.1" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/card_material.xml" value="0.2695035460992908" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/card_placemark.xml" value="0.38858695652173914" />

@@ -19,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activities.MaterialListActivity"
             android:exported="true">
@@ -29,6 +30,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.MaterialActivity"></activity>
+
+        <activity
+            android:name=".activities.PrinterListActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.PrinterActivity"></activity>
     </application>
 
 </manifest>

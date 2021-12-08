@@ -10,6 +10,19 @@
     <string name="hint_materialPrice">Material Price</string>
 
     <string name="title_activity_Material_list">MaterialListActivity</string>
+
+    <!-- Printer Model -->
+    <string name="button_addPrinter">Add Printer</string>
+    <string name="button_savePrinter">Save Printer</string>
+    <string name="hint_printerName">Printer Name</string>
+    <string name="hint_printerPrice">Printer Price</string>
+    <string name="hint_printWatts">Printer Watt Usage</string>
+    <string name="hint_printerInvestReturn">Printer Return On Investment In Months</string>
+
+    <string name="title_activity_Printer_list">PrinterListActivity</string>
+
+
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

@@ -46,7 +46,7 @@ class PrinterListActivity : AppCompatActivity(), PrinterListiner {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onPrinterClick(printers: PrinterModel) { //Clicking on material takes us to material edit
+    override fun onPrinterClick(printers: PrinterModel) { //Clicking on printer takes us to printers edit
         val launcherIntent = Intent(this, PrinterActivity::class.java)
         launcherIntent.putExtra("printer_edit", printers)
         startActivityForResult(launcherIntent,0)
