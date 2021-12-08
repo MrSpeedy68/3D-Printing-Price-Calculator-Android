@@ -3,22 +3,28 @@ package org.wit.pricecalculator.models
 import timber.log.Timber.i
 import timber.log.Timber.log
 import java.util.*
+import kotlin.collections.ArrayList
+
+internal fun generateRandomIdUser(): Long {
+    return Random().nextLong()
+}
 
 class UserMemStore : UserStore { //This class will be replaced once Google login is implemented
 
-    var mainUser = UserModel()
+    var users = ArrayList<UserModel>()
 
-    override fun find(): UserModel {
-        return mainUser
+    override fun findAll(): List<UserModel> {
+        return users
     }
 
     override fun create(user: UserModel) {
-        mainUser = user
+        user.userId = generateRandomIdUser()
+        users.add(user)
         logAll()
     }
 
     override fun update(user: UserModel) {
-        var foundUser: UserModel = mainUser
+        var foundUser: UserModel? = users.find { u -> u.userId == user.userId }
 
         if(foundUser != null) {
             foundUser.userName = user.userName
@@ -30,7 +36,7 @@ class UserMemStore : UserStore { //This class will be replaced once Google login
     }
 
     private fun logAll() {
-
+        users.forEach { i("$it") }
     }
 
 }
