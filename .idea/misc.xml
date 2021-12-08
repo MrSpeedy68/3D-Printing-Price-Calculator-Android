@@ -19,10 +19,13 @@
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/activity_placemark.xml" value="0.30213903743315507" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/activity_placemark_list.xml" value="0.317481884057971" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/activity_printer.xml" value="0.4973958333333333" />
-        <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/activity_printer_list.xml" value="0.1" />
+        <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/activity_printer_list.xml" value="0.33" />
+        <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/activity_user.xml" value="0.5" />
+        <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/activity_user_list.xml" value="0.4448563484708063" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/card_material.xml" value="0.2695035460992908" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/card_placemark.xml" value="0.38858695652173914" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/card_printer.xml" value="0.33" />
+        <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/card_user.xml" value="0.49895833333333334" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/content_main.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/edit_material.xml" value="0.38179347826086957" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/edit_placemark.xml" value="0.2762836185819071" />
@@ -32,6 +35,7 @@
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/menu/menu_material.xml" value="0.33" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/menu/menu_placemark.xml" value="0.41354166666666664" />
         <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/menu/menu_printer.xml" value="0.2935185185185185" />
+        <entry key="..\:/Users/mrspe/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/menu/menu_user.xml" value="0.41944444444444445" />
         <entry key="..\:/Users/mrspe/OneDrive - Waterford Institute of Technology/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/layout/activity_material_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/mrspe/OneDrive - Waterford Institute of Technology/Desktop/Local Github/3D-Printing-Price-Calculator-Android/app/src/main/res/menu/menu_main.xml" value="0.36666666666666664" />
       </map>

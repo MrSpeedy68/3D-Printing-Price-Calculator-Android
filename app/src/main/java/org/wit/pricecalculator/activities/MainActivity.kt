@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openUserActivity() {
-        val launcherIntent = Intent(this, UserActivity::class.java)
+        val launcherIntent = Intent(this, UserListActivity::class.java)
         startActivity(launcherIntent)
     }
 }

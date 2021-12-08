@@ -21,7 +21,15 @@
 
     <string name="title_activity_Printer_list">PrinterListActivity</string>
 
+    <!-- User Model -->
+    <string name="button_addUser">Add User</string>
+    <string name="button_saveUser">Save User</string>
+    <string name="hint_userName">User Name</string>
+    <string name="hint_labourCost">Cost Of Your Work Per Hour</string>
+    <string name="hint_energyCost">Cost for 1 Watt Hour</string>
+    <string name="hint_curreny">Your Preferred Currency</string>
 
+    <string name="title_activity_User_list">UserListActivity</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
