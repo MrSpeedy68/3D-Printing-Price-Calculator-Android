@@ -86,7 +86,9 @@ class MaterialActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_cancel -> { finish() }
+            R.id.item_delete -> { app.materials.delete(material) ; finish() }
         }
+
         return super.onOptionsItemSelected(item)
     }
 

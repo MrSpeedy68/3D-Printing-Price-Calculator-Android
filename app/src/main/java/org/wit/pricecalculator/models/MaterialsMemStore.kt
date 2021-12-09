@@ -34,6 +34,16 @@ class MaterialMemStore : MaterialStore {
         }
     }
 
+    override fun delete(material: MaterialsModel) {
+        var foundMaterial: MaterialsModel? = materials.find { m -> m.id == material.id }
+        if (foundMaterial != null) {
+            materials.remove(foundMaterial)
+        }
+
+
+
+    }
+
     private fun logAll() {
         materials.forEach { i("$it") }
     }

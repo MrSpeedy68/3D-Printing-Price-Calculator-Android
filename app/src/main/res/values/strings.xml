@@ -43,6 +43,7 @@
     <!-- Material Activity -->
     <string name="menu_addMaterial">Add</string>
     <string name="menu_cancelMaterial">Cancel</string>
+    <string name="menu_deleteMaterial">Delete</string>
 
     <string name="no_title">Name and Description Required</string>
 
