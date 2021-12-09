@@ -34,6 +34,13 @@ class PrintersMemStore : PrinterStore {
         }
     }
 
+    override fun delete(printer: PrinterModel) {
+        var foundPrinter: PrinterModel? = printers.find { p -> p.id == printer.id }
+        if (foundPrinter != null) {
+            printers.remove(foundPrinter)
+        }
+    }
+
     private fun logAll() {
         printers.forEach { i("$it") }
     }
