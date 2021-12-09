@@ -1,6 +1,7 @@
 package org.wit.pricecalculator.activities
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -44,11 +45,15 @@ class UserActivity : AppCompatActivity() {
             binding.localCurrency.setText(user.currency)
 
             binding.btnAdd.text = getString(R.string.button_saveUser)
-            binding.chooseImage.text = getString(R.string.button_changeImage)
+
 
             Picasso.get()
                 .load(user.image)
                 .into(binding.userImage)
+
+            if(user.image != Uri.EMPTY) {
+                binding.chooseImage.setText(R.string.button_changeImage)
+            }
         }
 
         binding.btnAdd.setOnClickListener() {
@@ -107,6 +112,8 @@ class UserActivity : AppCompatActivity() {
                             Picasso.get()
                                 .load(user.image)
                                 .into(binding.userImage)
+
+                            binding.chooseImage.setText(R.string.button_changeImage)
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }

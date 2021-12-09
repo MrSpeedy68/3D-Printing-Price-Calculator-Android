@@ -3,6 +3,7 @@ package org.wit.pricecalculator.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import org.wit.pricecalculator.databinding.CardUserBinding
 import org.wit.pricecalculator.models.UserModel
 
@@ -30,13 +31,13 @@ class UserAdapter constructor(private var users: List<UserModel>, private val li
     class MainHolder(private val binding : CardUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(users: UserModel, listener: UserListiner) {
-            binding.userName.text = users.userName
-            binding.labourCost.text = users.labourCost.toString()
-            binding.energyCost.text = users.energyCost.toString()
-            binding.localCurrency.text = users.currency
-
-            binding.root.setOnClickListener { listener.onUserClick(users) }
+        fun bind(user: UserModel, listener: UserListiner) {
+            binding.userName.text = user.userName
+            binding.labourCost.text = user.labourCost.toString()
+            binding.energyCost.text = user.energyCost.toString()
+            binding.localCurrency.text = user.currency
+            Picasso.get().load(user.image).resize(200,200).into(binding.imageIcon)
+            binding.root.setOnClickListener { listener.onUserClick(user) }
         }
     }
 }
