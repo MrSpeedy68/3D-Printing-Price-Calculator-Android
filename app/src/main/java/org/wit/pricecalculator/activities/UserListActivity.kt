@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.pricecalculator.R
@@ -17,6 +19,7 @@ class UserListActivity: AppCompatActivity(), UserListiner {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityUserListBinding
+    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +32,8 @@ class UserListActivity: AppCompatActivity(), UserListiner {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = UserAdapter(app.users.findAll(),this)
+
+        registerRefreshCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -40,7 +45,7 @@ class UserListActivity: AppCompatActivity(), UserListiner {
         when (item.itemId) {
             R.id.item_add -> {
                 val launcherIntent = Intent(this, UserActivity::class.java)
-                startActivityForResult(launcherIntent,0)
+                refreshIntentLauncher.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -49,11 +54,12 @@ class UserListActivity: AppCompatActivity(), UserListiner {
     override fun onUserClick(users: UserModel) { //Clicking on users takes us to users edit
         val launcherIntent = Intent(this, UserActivity::class.java)
         launcherIntent.putExtra("user_edit", users)
-        startActivityForResult(launcherIntent,0)
+        refreshIntentLauncher.launch(launcherIntent)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun registerRefreshCallback() {
+        refreshIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { binding.recyclerView.adapter?.notifyDataSetChanged() }
     }
 }

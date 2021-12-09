@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.pricecalculator.R
@@ -17,6 +19,7 @@ class PrinterListActivity : AppCompatActivity(), PrinterListiner {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityPrinterListBinding
+    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +32,8 @@ class PrinterListActivity : AppCompatActivity(), PrinterListiner {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = PrinterAdapter(app.printers.findAll(),this)
+
+        registerRefreshCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -40,7 +45,7 @@ class PrinterListActivity : AppCompatActivity(), PrinterListiner {
         when (item.itemId) {
             R.id.item_add -> {
                 val launcherIntent = Intent(this, PrinterActivity::class.java)
-                startActivityForResult(launcherIntent,0)
+                refreshIntentLauncher.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -49,12 +54,13 @@ class PrinterListActivity : AppCompatActivity(), PrinterListiner {
     override fun onPrinterClick(printers: PrinterModel) { //Clicking on printer takes us to printers edit
         val launcherIntent = Intent(this, PrinterActivity::class.java)
         launcherIntent.putExtra("printer_edit", printers)
-        startActivityForResult(launcherIntent,0)
+        refreshIntentLauncher.launch(launcherIntent)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun registerRefreshCallback() {
+        refreshIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { binding.recyclerView.adapter?.notifyDataSetChanged() }
     }
 
 }
