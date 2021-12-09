@@ -3,6 +3,7 @@ package org.wit.pricecalculator.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import org.wit.pricecalculator.databinding.CardPrinterBinding
 import org.wit.pricecalculator.models.PrinterModel
 
@@ -30,13 +31,13 @@ class PrinterAdapter constructor(private var printers: List<PrinterModel>, priva
     class MainHolder(private val binding : CardPrinterBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(printers: PrinterModel, listener: PrinterListiner) {
-            binding.printerName.text = printers.name
-            binding.printerPrice.text = printers.price.toString()
-            binding.printerWattUsage.text = printers.wattUsage.toString()
-            binding.investReturn.text = printers.investmentReturn.toString()
-
-            binding.root.setOnClickListener { listener.onPrinterClick(printers) }
+        fun bind(printer: PrinterModel, listener: PrinterListiner) {
+            binding.printerName.text = printer.name
+            binding.printerPrice.text = printer.price.toString()
+            binding.printerWattUsage.text = printer.wattUsage.toString()
+            binding.investReturn.text = printer.investmentReturn.toString()
+            Picasso.get().load(printer.image).resize(200,200).into(binding.imageIcon)
+            binding.root.setOnClickListener { listener.onPrinterClick(printer) }
         }
     }
 }

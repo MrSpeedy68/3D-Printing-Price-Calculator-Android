@@ -1,6 +1,7 @@
 package org.wit.pricecalculator.activities
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -44,11 +45,14 @@ class PrinterActivity : AppCompatActivity() {
             binding.investReturn.setText(printer.investmentReturn.toString())
 
             binding.btnAdd.text = getString(R.string.button_savePrinter)
-            binding.chooseImage.text = getString(R.string.button_changeImage)
 
             Picasso.get()
                 .load(printer.image)
                 .into(binding.printerImage)
+
+            if(printer.image != Uri.EMPTY) {
+                binding.chooseImage.setText(R.string.button_changeImage)
+            }
         }
 
         binding.btnAdd.setOnClickListener() {
@@ -106,6 +110,8 @@ class PrinterActivity : AppCompatActivity() {
                             Picasso.get()
                                 .load(printer.image)
                                 .into(binding.printerImage)
+
+                            binding.chooseImage.setText(R.string.button_changeImage)
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }
