@@ -3,6 +3,7 @@ package org.wit.pricecalculator.activities
 import android.content.Intent
 import android.graphics.Insets.add
 import android.os.Bundle
+import android.util.Printer
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
@@ -17,10 +18,16 @@ class CalculationActivity : AppCompatActivity(){
 
     lateinit var app: MainApp
 
-    var material = MaterialsModel()
+    //var material = MaterialsModel()
 
     private lateinit var matSpinner: Spinner
     private lateinit var materialAdapter: ArrayAdapter<MaterialsModel>
+
+    private lateinit var printSpinner: Spinner
+    private lateinit var printerAdapter: ArrayAdapter<PrinterModel>
+
+    private lateinit var usrSpinner: Spinner
+    private lateinit var userAdapter: ArrayAdapter<UserModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +35,7 @@ class CalculationActivity : AppCompatActivity(){
 
         app = application as MainApp
 
+        //Populate Material Spinner with all material objects
         matSpinner = findViewById(R.id.materialSpinner)
 
         val materialObjects = app.materials.findAll()
@@ -36,19 +44,24 @@ class CalculationActivity : AppCompatActivity(){
 
         matSpinner.adapter = materialAdapter
 
+        //Populate Printer Spinner with all printer objects
+        printSpinner = findViewById(R.id.printerSpinner)
+
+        val printerObjects = app.printers.findAll()
+
+        printerAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, printerObjects)
+
+        printSpinner.adapter = printerAdapter
+
+        //Populate Material Spinner with all material objects
+        usrSpinner = findViewById(R.id.userSpinner)
+
+        val userObjects = app.users.findAll()
+
+        userAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, userObjects)
+
+        usrSpinner.adapter = userAdapter
     }
-
-
-//    private fun getMaterialObjects(): ArrayList<MaterialsModel> {
-//
-//
-//        val materialObjects = app.materials.findAll()
-//
-//        materialObjects.apply {
-//            add(MaterialsModel(1,"ESUN BLUE", "PLA", 1000,25.50))
-//        }
-//
-//    }
 
 
     //Calculates the total filament cost by getting cost per gram and multiplying by total grams used
