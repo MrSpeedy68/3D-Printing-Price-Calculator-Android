@@ -1,24 +1,22 @@
 package org.wit.pricecalculator.activities
 
-import android.content.Intent
-import android.graphics.Insets.add
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Printer
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import org.wit.pricecalculator.R
+import org.wit.pricecalculator.databinding.ActivityCalculationBinding
 import org.wit.pricecalculator.main.MainApp
 import org.wit.pricecalculator.models.MaterialsModel
 import org.wit.pricecalculator.models.PrinterModel
 import org.wit.pricecalculator.models.UserModel
+import timber.log.Timber.i
 
 class CalculationActivity : AppCompatActivity(){
-
+    private lateinit var binding: ActivityCalculationBinding
     lateinit var app: MainApp
-
-    //var material = MaterialsModel()
 
     private lateinit var matSpinner: Spinner
     private lateinit var materialAdapter: ArrayAdapter<MaterialsModel>
@@ -29,24 +27,42 @@ class CalculationActivity : AppCompatActivity(){
     private lateinit var usrSpinner: Spinner
     private lateinit var userAdapter: ArrayAdapter<UserModel>
 
+
+    @SuppressLint("TimberArgCount")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calculation)
+        binding = ActivityCalculationBinding.inflate(layoutInflater)
+        setContentView((binding.root))
+        binding.toolbarAdd.title = title
+        setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp
 
-        //Populate Material Spinner with all material objects
         matSpinner = findViewById(R.id.materialSpinner)
+        printSpinner = findViewById(R.id.printerSpinner)
+        usrSpinner = findViewById(R.id.userSpinner)
 
+
+        val calcButton = findViewById<Button>(R.id.btnCalculate)
+
+        calcButton.setOnClickListener {
+            //TotalPrintCost()
+            i("model weight val: %s", binding.modelWeight.text)
+            i("Shpinner info", binding.materialSpinner.get)
+        }
+
+
+
+        //Populate Material Spinner with all material objects
         val materialObjects = app.materials.findAll()
 
         materialAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, materialObjects)
 
         matSpinner.adapter = materialAdapter
 
-        //Populate Printer Spinner with all printer objects
-        printSpinner = findViewById(R.id.printerSpinner)
 
+        //Populate Printer Spinner with all printer objects
         val printerObjects = app.printers.findAll()
 
         printerAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, printerObjects)
@@ -54,8 +70,6 @@ class CalculationActivity : AppCompatActivity(){
         printSpinner.adapter = printerAdapter
 
         //Populate Material Spinner with all material objects
-        usrSpinner = findViewById(R.id.userSpinner)
-
         val userObjects = app.users.findAll()
 
         userAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, userObjects)
