@@ -35,6 +35,13 @@ class UserMemStore : UserStore { //This class will be replaced once Google login
         }
     }
 
+    override fun delete(user: UserModel) {
+        var foundUser: UserModel? = users.find { u -> u.userId == user.userId }
+        if (foundUser != null) {
+            users.remove(foundUser)
+        }
+    }
+
     private fun logAll() {
         users.forEach { i("$it") }
     }
