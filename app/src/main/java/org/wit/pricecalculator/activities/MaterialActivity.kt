@@ -1,6 +1,7 @@
 package org.wit.pricecalculator.activities
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -42,11 +43,14 @@ class MaterialActivity : AppCompatActivity() {
             binding.materialWeight.setText(material.weight.toString())
             binding.materialPrice.setText(material.price.toString())
             binding.btnAdd.text = getString(R.string.button_saveMaterial)
-            binding.chooseImage.text = getString(R.string.button_changeImage)
+
 
             Picasso.get()
                 .load(material.image)
                 .into(binding.materialImage)
+            if(material.image != Uri.EMPTY) {
+                binding.chooseImage.setText(R.string.button_changeImage)
+            }
         }
 
         binding.btnAdd.setOnClickListener() {
@@ -104,6 +108,7 @@ class MaterialActivity : AppCompatActivity() {
                             Picasso.get()
                                 .load(material.image)
                                 .into(binding.materialImage)
+                            binding.chooseImage.setText(R.string.button_changeImage)
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }

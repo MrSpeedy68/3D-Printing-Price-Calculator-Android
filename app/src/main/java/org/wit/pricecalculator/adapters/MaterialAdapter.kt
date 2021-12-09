@@ -3,6 +3,7 @@ package org.wit.pricecalculator.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import org.wit.pricecalculator.databinding.CardMaterialBinding
 import org.wit.pricecalculator.models.MaterialsModel
 
@@ -31,13 +32,13 @@ class MaterialAdapter constructor(private var materials: List<MaterialsModel>,
     class MainHolder(private val binding : CardMaterialBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(materials: MaterialsModel, listener: MaterialListiner) {
-            binding.materialName.text = materials.name
-            binding.materialType.text = materials.type
-            binding.materialWeight.text = materials.weight.toString()
-            binding.materialPrice.text = materials.price.toString()
-
-            binding.root.setOnClickListener { listener.onMaterialClick(materials) }
+        fun bind(material: MaterialsModel, listener: MaterialListiner) {
+            binding.materialName.text = material.name
+            binding.materialType.text = material.type
+            binding.materialWeight.text = material.weight.toString()
+            binding.materialPrice.text = material.price.toString()
+            Picasso.get().load(material.image).resize(200,200).into(binding.imageIcon)
+            binding.root.setOnClickListener { listener.onMaterialClick(material) }
         }
     }
 }
