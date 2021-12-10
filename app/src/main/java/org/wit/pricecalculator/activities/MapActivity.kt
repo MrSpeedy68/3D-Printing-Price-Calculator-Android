@@ -12,17 +12,17 @@ import com.google.android.gms.maps.model.MarkerOptions
 import org.wit.pricecalculator.R
 //import org.wit.pricecalculator.activities.databinding.ActivityMapBinding
 import org.wit.pricecalculator.databinding.ActivityMapBinding
+import org.wit.pricecalculator.models.Location
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var mMap: GoogleMap
-    private lateinit var binding: ActivityMapBinding
+    private lateinit var map: GoogleMap
+    var location = Location()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityMapBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_map)
+        location = intent.extras?.getParcelable<Location>("location")!!
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -40,11 +40,14 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        map = googleMap
+        val loc = LatLng(location.lat, location.lng)
+        val options = MarkerOptions()
+            .title("Task")
+            .snippet("GPS : $loc")
+            .draggable(true)
+            .position(loc)
+        map.addMarker(options)
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))
     }
 }
