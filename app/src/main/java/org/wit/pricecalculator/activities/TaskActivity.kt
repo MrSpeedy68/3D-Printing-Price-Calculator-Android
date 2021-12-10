@@ -10,7 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import org.wit.pricecalculator.R
 import org.wit.pricecalculator.main.MainApp
-import org.wit.pricecalculator.models.GeoPoint
+import org.wit.pricecalculator.models.GeoPointModel
 import org.wit.pricecalculator.models.Location
 import timber.log.Timber.i
 import java.lang.NumberFormatException
@@ -69,10 +69,10 @@ class TaskActivity  : AppCompatActivity() {
             }
     }
 
-    fun getLocationFromAddress(strAddress: String?): GeoPoint? {
+    fun getLocationFromAddress(strAddress: String?): GeoPointModel? {
         val coder = Geocoder(this)
         val address: List<Address>
-        var p1: GeoPoint? = null
+        var p1: GeoPointModel? = null
         return try {
             address = coder.getFromLocationName(strAddress, 5)
             if (address == null) {
@@ -81,7 +81,7 @@ class TaskActivity  : AppCompatActivity() {
             val location: Address = address[0]
             location.getLatitude()
             location.getLongitude()
-            p1 = GeoPoint(
+            p1 = GeoPointModel(
                 (location.getLatitude()) as Double,
                 (location.getLongitude()) as Double
             )

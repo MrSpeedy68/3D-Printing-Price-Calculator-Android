@@ -4,7 +4,8 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class TaskModel(var customerName: String = "",
+data class TaskModel(var id: Long = 0L,
+                     var customerName: String = "",
                      var taskDescription: String = "",
                      var address: String = "",
                      var taskCost: Float = 0f,
