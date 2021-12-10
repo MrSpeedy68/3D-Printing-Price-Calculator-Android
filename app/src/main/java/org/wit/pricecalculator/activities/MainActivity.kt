@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openTaskActivity() {
-        val launcherIntent = Intent(this, TaskActivity::class.java)
+        val launcherIntent = Intent(this, TaskListActivity::class.java)
         startActivity(launcherIntent)
     }
 }
