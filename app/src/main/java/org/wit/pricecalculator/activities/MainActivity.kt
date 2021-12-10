@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         val printersButton = findViewById<Button>(R.id.btnPrinters)
         val usersButton = findViewById<Button>(R.id.btnUsers)
         val calcButton = findViewById<Button>(R.id.btnCalc)
+        val taskButton = findViewById<Button>(R.id.btnTask)
 
         materialsButton.setOnClickListener {
             openMaterialsActivity()
@@ -34,6 +35,10 @@ class MainActivity : AppCompatActivity() {
 
         calcButton.setOnClickListener {
             openCalcActivity()
+        }
+
+        taskButton.setOnClickListener {
+            openTaskActivity()
         }
 
 
@@ -56,6 +61,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun openCalcActivity() {
         val launcherIntent = Intent(this, CalculationActivity::class.java)
+        startActivity(launcherIntent)
+    }
+
+    private fun openTaskActivity() {
+        val launcherIntent = Intent(this, TaskActivity::class.java)
         startActivity(launcherIntent)
     }
 }

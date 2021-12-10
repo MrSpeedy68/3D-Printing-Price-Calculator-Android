@@ -8,7 +8,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "org.wit.placemark"
+        applicationId "org.wit.pricecalculator"
         minSdk 30
         targetSdk 31
         versionCode 1
@@ -49,6 +49,7 @@ dependencies {
     implementation 'androidx.activity:activity-ktx:1.3.1'
     implementation 'androidx.fragment:fragment-ktx:1.3.6'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
