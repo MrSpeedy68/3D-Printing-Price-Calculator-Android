@@ -56,7 +56,15 @@
     <!-- Task Screen -->
     <string name="button_location">Set Location</string>
     <string name="button_task">Tasks</string>
+    <string name="button_addTask">Add Task</string>
     <string name="title_activity_map">Map</string>
+
+    <string name="hint_customerName">Customer Name</string>
+    <string name="hint_description">Description</string>
+    <string name="hint_address">Address</string>
+    <string name="hint_taskCost">Task Cost</string>
+    <string name="hint_shipping">Shipping Cost</string>>
+
 
     <!-- Main Screen -->
 
