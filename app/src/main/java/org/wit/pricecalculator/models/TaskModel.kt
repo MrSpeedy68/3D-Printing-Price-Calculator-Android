@@ -6,6 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class TaskModel(var customerName: String = "",
                      var taskDescription: String = "",
+                     var address: String = "",
                      var taskCost: Float = 0f,
                      var shippingCost: Float = 0f,
                      var lat: Double = 0.0,
