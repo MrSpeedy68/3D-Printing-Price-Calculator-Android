@@ -53,18 +53,24 @@ class TaskActivity  : AppCompatActivity() {
         }
 
         binding.btnAdd.setOnClickListener() {
-            //val coords: GeoPointModel? = getLocationFromAddress(binding.taskAddress.text.toString())
-
-            //i (coords.toString())
             task.customerName = binding.customerName.text.toString()
             task.taskDescription = binding.taskDescription.text.toString()
             task.address = binding.taskAddress.text.toString()
             task.taskCost = binding.taskCosts.text.toString().toFloat()
             task.shippingCost = binding.shippingCosts.text.toString().toFloat()
-//            if (coords != null) {
-//                task.lat = coords.latitude
-//                task.lng = coords.longitude
-//            }
+            if(binding.taskAddress.text != null) {
+                val coords: GeoPointModel? =
+                    getLocationFromAddress(binding.taskAddress.text.toString())
+
+                i("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+                i(coords.toString())
+
+                if (coords != null) {
+                    task.lat = coords.latitude
+                    task.lng = coords.longitude
+                    task.zoom = 15f
+                }
+            }
 
             if (task.customerName.isEmpty()) {
                 Snackbar.make(it,R.string.no_title, Snackbar.LENGTH_LONG)
@@ -88,20 +94,30 @@ class TaskActivity  : AppCompatActivity() {
                 val coords: GeoPointModel? =
                     getLocationFromAddress(binding.taskAddress.text.toString())
 
-                //var location2 = coords?.let { Location(it.latitude, coords.longitude, 15f) }
-
                 i("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
                 i(coords.toString())
             }
         }
 
         binding.btnMap.setOnClickListener {
-            if(binding.taskAddress.text != null) {
 
-                val launcherIntent = Intent(this, MapActivity::class.java)
-                    .putExtra("location", location)
-                mapIntentLauncher.launch(launcherIntent)
+            //registerMapCallback()
+            if(binding.taskAddress.text != null) {
+                val coords: GeoPointModel? =
+                    getLocationFromAddress(binding.taskAddress.text.toString())
+
+                i("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+                i(coords.toString())
+
+                if (coords != null) {
+                    location = Location(coords.latitude, coords.longitude, 15f)
+
+                    val launcherIntent = Intent(this, MapActivity::class.java)
+                        .putExtra("location", location)
+                    mapIntentLauncher.launch(launcherIntent)
+                }
             }
+
         }
     }
 
