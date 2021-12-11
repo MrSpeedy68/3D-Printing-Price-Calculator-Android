@@ -26,6 +26,8 @@ class TaskActivity  : AppCompatActivity() {
     lateinit var app: MainApp
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
 
+    var location = Location(52.245696, -7.139102, 15f)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task)
@@ -51,17 +53,18 @@ class TaskActivity  : AppCompatActivity() {
         }
 
         binding.btnAdd.setOnClickListener() {
-            val coords: GeoPointModel? = getLocationFromAddress(binding.taskAddress.text.toString())
+            //val coords: GeoPointModel? = getLocationFromAddress(binding.taskAddress.text.toString())
 
+            //i (coords.toString())
             task.customerName = binding.customerName.text.toString()
             task.taskDescription = binding.taskDescription.text.toString()
             task.address = binding.taskAddress.text.toString()
             task.taskCost = binding.taskCosts.text.toString().toFloat()
             task.shippingCost = binding.shippingCosts.text.toString().toFloat()
-            if (coords != null) {
-                task.lat = coords.latitude
-                task.lng = coords.longitude
-            }
+//            if (coords != null) {
+//                task.lat = coords.latitude
+//                task.lng = coords.longitude
+//            }
 
             if (task.customerName.isEmpty()) {
                 Snackbar.make(it,R.string.no_title, Snackbar.LENGTH_LONG)
@@ -78,16 +81,22 @@ class TaskActivity  : AppCompatActivity() {
             finish()
         }
 
+        registerMapCallback()
 
-
-        binding.btnMap.setOnClickListener {
+        binding.btnTest.setOnClickListener {
             if(binding.taskAddress.text != null) {
-                registerMapCallback()
-
                 val coords: GeoPointModel? =
                     getLocationFromAddress(binding.taskAddress.text.toString())
 
-                var location = coords?.let { it1 -> Location(it1.latitude, coords.longitude, 15f) }
+                //var location2 = coords?.let { Location(it.latitude, coords.longitude, 15f) }
+
+                i("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+                i(coords.toString())
+            }
+        }
+
+        binding.btnMap.setOnClickListener {
+            if(binding.taskAddress.text != null) {
 
                 val launcherIntent = Intent(this, MapActivity::class.java)
                     .putExtra("location", location)
@@ -111,11 +120,6 @@ class TaskActivity  : AppCompatActivity() {
     }
 
     private fun registerMapCallback() {
-        val coords: GeoPointModel? =
-            getLocationFromAddress(binding.taskAddress.text.toString())
-
-        var location2 = coords?.let { it1 -> Location(it1.latitude, coords.longitude, 15f) }
-
         mapIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
             { result ->
@@ -123,8 +127,8 @@ class TaskActivity  : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Location ${result.data.toString()}")
-                            location2 = result.data!!.extras?.getParcelable("location")!!
-                            i("Location == $location2")
+                            location = result.data!!.extras?.getParcelable("location")!!
+                            i("Location == $location")
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }
@@ -141,12 +145,12 @@ class TaskActivity  : AppCompatActivity() {
             if (address == null) {
                 return null
             }
-            val location: Address = address[0]
-            location.getLatitude()
-            location.getLongitude()
+            val loc: Address = address[0]
+            loc.latitude
+            loc.longitude
             p1 = GeoPointModel(
-                (location.getLatitude()) as Double,
-                (location.getLongitude()) as Double
+                (loc.latitude) as Double,
+                (loc.longitude) as Double
             )
             p1
         }

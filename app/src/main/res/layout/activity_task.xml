@@ -61,8 +61,8 @@
                     android:layout_margin="8dp"
                     android:autofillHints="hint"
                     android:hint="@string/hint_description"
-                    android:inputType="text"
-                    android:maxLength="25"
+                    android:inputType="textLongMessage"
+                    android:maxLength="50"
                     android:maxLines="1"
                     android:padding="8dp"
                     android:textColor="@color/colorPrimaryDark"
@@ -75,8 +75,8 @@
                     android:layout_margin="8dp"
                     android:autofillHints="hint"
                     android:hint="@string/hint_address"
-                    android:inputType="text"
-                    android:maxLength="25"
+                    android:inputType="textLongMessage"
+                    android:maxLength="75"
                     android:maxLines="1"
                     android:padding="8dp"
                     android:textColor="@color/colorPrimaryDark"
@@ -120,6 +120,19 @@
                     android:paddingBottom="8dp"
                     android:stateListAnimator="@null"
                     android:text="@string/title_activity_map"
+                    android:textColor="#212121"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btnTest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@color/colorAccent"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:stateListAnimator="@null"
+                    android:text="@string/button_test"
                     android:textColor="#212121"
                     android:textSize="16sp" />
 

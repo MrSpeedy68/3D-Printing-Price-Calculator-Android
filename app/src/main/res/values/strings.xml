@@ -64,6 +64,7 @@
     <string name="hint_address">Address</string>
     <string name="hint_taskCost">Task Cost</string>
     <string name="hint_shipping">Shipping Cost</string>>
+    <string name="button_test">Test</string>
 
 
     <!-- Main Screen -->
