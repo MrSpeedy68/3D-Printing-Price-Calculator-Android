@@ -58,19 +58,19 @@ class TaskActivity  : AppCompatActivity() {
             task.address = binding.taskAddress.text.toString()
             task.taskCost = binding.taskCosts.text.toString().toFloat()
             task.shippingCost = binding.shippingCosts.text.toString().toFloat()
-            if(binding.taskAddress.text != null) {
-                val coords: GeoPointModel? =
-                    getLocationFromAddress(binding.taskAddress.text.toString())
-
-                i("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-                i(coords.toString())
-
-                if (coords != null) {
-                    task.lat = coords.latitude
-                    task.lng = coords.longitude
-                    task.zoom = 15f
-                }
-            }
+//            if(binding.taskAddress.text != null) {
+//                val coords: GeoPointModel? =
+//                    getLocationFromAddress(binding.taskAddress.text.toString())
+//
+//                i("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+//                i(coords.toString())
+//
+//                if (coords != null) {
+//                    task.lat = coords.latitude
+//                    task.lng = coords.longitude
+//                    task.zoom = 15f
+//                }
+//            }
 
             if (task.customerName.isEmpty()) {
                 Snackbar.make(it,R.string.no_title, Snackbar.LENGTH_LONG)

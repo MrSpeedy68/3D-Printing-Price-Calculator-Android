@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "379781713751",
+    "project_id": "d-printing-price-calculator",
+    "storage_bucket": "d-printing-price-calculator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:379781713751:android:ed64583ed3e56030c5b812",
+        "android_client_info": {
+          "package_name": "org.wit.pricecalculator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "379781713751-ekkkng2j03gl76du1ahmqfhorjnfvckq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJByOknMgskh0Tj9Kv2pN1cOKE0MoFAII"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "379781713751-ekkkng2j03gl76du1ahmqfhorjnfvckq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
