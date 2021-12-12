@@ -72,7 +72,12 @@ class MaterialActivity : AppCompatActivity() {
 
 
             database = Firebase.database("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
-            database.child(material.name).setValue(material).addOnSuccessListener {
+
+            database.child(material.name).child("name").setValue(material.name)
+            database.child(material.name).child("id").setValue(material.id)
+            database.child(material.name).child("type").setValue(material.type)
+            database.child(material.name).child("weight").setValue(material.weight)
+            database.child(material.name).child("price").setValue(material.price).addOnSuccessListener {
 
 
                 Toast.makeText(this, "Successfully Saved Material", Toast.LENGTH_SHORT).show()
