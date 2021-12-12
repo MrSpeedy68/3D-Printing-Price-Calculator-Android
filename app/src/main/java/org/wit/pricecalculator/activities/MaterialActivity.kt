@@ -73,6 +73,11 @@ class MaterialActivity : AppCompatActivity() {
 
             database = Firebase.database("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
 
+//            val imageRef = database.child("images/${material.image}")
+//            val uploadTask = imageRef.putFile(material.image)
+
+
+
             database.child(material.name).child("name").setValue(material.name)
             database.child(material.name).child("id").setValue(material.id)
             database.child(material.name).child("type").setValue(material.type)

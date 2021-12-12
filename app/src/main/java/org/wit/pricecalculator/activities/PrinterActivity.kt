@@ -5,10 +5,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import org.wit.pricecalculator.R
 import org.wit.pricecalculator.databinding.ActivityPrinterBinding
@@ -20,6 +24,7 @@ import timber.log.Timber
 class PrinterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPrinterBinding
+    private lateinit var database: DatabaseReference
     var printer = PrinterModel()
     lateinit var app: MainApp
 
@@ -61,19 +66,43 @@ class PrinterActivity : AppCompatActivity() {
             printer.wattUsage = binding.printerWattUsage.text.toString().toInt()
             printer.investmentReturn = binding.investReturn.text.toString().toInt()
 
-            if (printer.name.isEmpty()) {
-                Snackbar.make(it, R.string.no_title, Snackbar.LENGTH_LONG)
-                    .show()
-            } else {
-                if (edit) {
-                    app.printers.update(printer.copy())
-                } else {
-                    app.printers.create(printer.copy())
-                }
+            database = Firebase.database("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Printers")
+
+//            val imageRef = database.child("images/${material.image}")
+//            val uploadTask = imageRef.putFile(material.image)
+
+
+
+            database.child(printer.name).child("name").setValue(printer.name)
+            database.child(printer.name).child("id").setValue(printer.id)
+            database.child(printer.name).child("price").setValue(printer.price)
+            database.child(printer.name).child("wattusage").setValue(printer.wattUsage)
+            database.child(printer.name).child("investmentreturn").setValue(printer.investmentReturn).addOnSuccessListener {
+
+
+                Toast.makeText(this, "Successfully Saved Printer", Toast.LENGTH_SHORT).show()
+
+                setResult(RESULT_OK)
+                finish()
+            }.addOnFailureListener {
+                Toast.makeText(this, "Failed to Save Printer", Toast.LENGTH_SHORT).show()
             }
-            Timber.i("add Button Pressed: $printer")
-            setResult(RESULT_OK)
-            finish()
+
+
+
+//            if (printer.name.isEmpty()) {
+//                Snackbar.make(it, R.string.no_title, Snackbar.LENGTH_LONG)
+//                    .show()
+//            } else {
+//                if (edit) {
+//                    app.printers.update(printer.copy())
+//                } else {
+//                    app.printers.create(printer.copy())
+//                }
+//            }
+//            Timber.i("add Button Pressed: $printer")
+//            setResult(RESULT_OK)
+//            finish()
         }
 
         binding.chooseImage.setOnClickListener {
