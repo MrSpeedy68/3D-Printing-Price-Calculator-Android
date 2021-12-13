@@ -20,7 +20,6 @@ import org.wit.pricecalculator.models.MaterialsModel
 class MaterialListActivity : AppCompatActivity(), MaterialListiner {
 
     lateinit var app: MainApp
-    private lateinit var database: DatabaseReference
     private lateinit var binding: ActivityMaterialListBinding
     private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
 

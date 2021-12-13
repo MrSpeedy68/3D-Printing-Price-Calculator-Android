@@ -25,5 +25,7 @@ class MainApp : Application() {
         i("3DPPC started")
 
         FirebaseApp.initializeApp(this)
+
+        materials.initialize()
     }
 }

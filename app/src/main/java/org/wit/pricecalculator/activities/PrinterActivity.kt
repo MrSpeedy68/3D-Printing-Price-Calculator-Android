@@ -73,36 +73,36 @@ class PrinterActivity : AppCompatActivity() {
 
 
 
-            database.child(printer.name).child("name").setValue(printer.name)
-            database.child(printer.name).child("id").setValue(printer.id)
-            database.child(printer.name).child("price").setValue(printer.price)
-            database.child(printer.name).child("wattusage").setValue(printer.wattUsage)
-            database.child(printer.name).child("investmentreturn").setValue(printer.investmentReturn).addOnSuccessListener {
-
-
-                Toast.makeText(this, "Successfully Saved Printer", Toast.LENGTH_SHORT).show()
-
-                setResult(RESULT_OK)
-                finish()
-            }.addOnFailureListener {
-                Toast.makeText(this, "Failed to Save Printer", Toast.LENGTH_SHORT).show()
-            }
-
-
-
-//            if (printer.name.isEmpty()) {
-//                Snackbar.make(it, R.string.no_title, Snackbar.LENGTH_LONG)
-//                    .show()
-//            } else {
-//                if (edit) {
-//                    app.printers.update(printer.copy())
-//                } else {
-//                    app.printers.create(printer.copy())
-//                }
+//            database.child(printer.name).child("name").setValue(printer.name)
+//            database.child(printer.name).child("id").setValue(printer.id)
+//            database.child(printer.name).child("price").setValue(printer.price)
+//            database.child(printer.name).child("wattusage").setValue(printer.wattUsage)
+//            database.child(printer.name).child("investmentreturn").setValue(printer.investmentReturn).addOnSuccessListener {
+//
+//
+//                Toast.makeText(this, "Successfully Saved Printer", Toast.LENGTH_SHORT).show()
+//
+//                setResult(RESULT_OK)
+//                finish()
+//            }.addOnFailureListener {
+//                Toast.makeText(this, "Failed to Save Printer", Toast.LENGTH_SHORT).show()
 //            }
-//            Timber.i("add Button Pressed: $printer")
-//            setResult(RESULT_OK)
-//            finish()
+
+
+
+            if (printer.name.isEmpty()) {
+                Snackbar.make(it, R.string.no_title, Snackbar.LENGTH_LONG)
+                    .show()
+            } else {
+                if (edit) {
+                    app.printers.update(printer.copy())
+                } else {
+                    app.printers.create(printer.copy())
+                }
+            }
+            Timber.i("add Button Pressed: $printer")
+            setResult(RESULT_OK)
+            finish()
         }
 
         binding.chooseImage.setOnClickListener {

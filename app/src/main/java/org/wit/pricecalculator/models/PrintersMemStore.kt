@@ -3,9 +3,10 @@ package org.wit.pricecalculator.models
 import timber.log.Timber.i
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.random.Random
 
 internal fun generateRandomIdPrinter(): Long {
-    return Random().nextLong()
+    return System.currentTimeMillis()
 }
 
 class PrintersMemStore : PrinterStore {
