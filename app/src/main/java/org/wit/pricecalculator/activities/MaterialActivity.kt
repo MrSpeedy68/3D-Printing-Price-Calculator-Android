@@ -26,7 +26,6 @@ import com.google.firebase.ktx.Firebase
 
 class MaterialActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMaterialBinding
-    private lateinit var database: DatabaseReference
     var material = MaterialsModel()
     lateinit var app: MainApp
 
@@ -66,9 +65,6 @@ class MaterialActivity : AppCompatActivity() {
             material.weight = binding.materialWeight.text.toString().toInt()
             material.price = binding.materialPrice.text.toString().toFloat()
 
-//            database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
-//            database.child(material.name).setValue(material).addOnSuccessListener {
-
             if (material.name.isEmpty()) {
                 Snackbar.make(it,R.string.no_title, Snackbar.LENGTH_LONG)
                     .show()
@@ -83,29 +79,9 @@ class MaterialActivity : AppCompatActivity() {
             i("add Button Pressed: $material")
             setResult(RESULT_OK)
             finish()
-
-
-//            val imageRef = database.child("images/${material.image}")
-//            val uploadTask = imageRef.putFile(material.image)
-
-//            if (material.name.isEmpty()) {
-//                Snackbar.make(it,R.string.no_title, Snackbar.LENGTH_LONG)
-//                    .show()
-//            } else {
-//                if (edit) {
-//                    app.materials.update(material.copy())
-//                } else {
-//
-//                    app.materials.create(material.copy())
-//                }
-//            }
-//            i("add Button Pressed: $material")
-//            setResult(RESULT_OK)
-//            finish()
         }
 
         binding.chooseImage.setOnClickListener {
-            //i("Select image")
             showImagePicker(imageIntentLauncher)
         }
 

@@ -24,7 +24,6 @@ import timber.log.Timber
 class PrinterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPrinterBinding
-    private lateinit var database: DatabaseReference
     var printer = PrinterModel()
     lateinit var app: MainApp
 
@@ -65,30 +64,6 @@ class PrinterActivity : AppCompatActivity() {
             printer.price = binding.printerPrice.text.toString().toFloat()
             printer.wattUsage = binding.printerWattUsage.text.toString().toInt()
             printer.investmentReturn = binding.investReturn.text.toString().toInt()
-
-            database = Firebase.database("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Printers")
-
-//            val imageRef = database.child("images/${material.image}")
-//            val uploadTask = imageRef.putFile(material.image)
-
-
-
-//            database.child(printer.name).child("name").setValue(printer.name)
-//            database.child(printer.name).child("id").setValue(printer.id)
-//            database.child(printer.name).child("price").setValue(printer.price)
-//            database.child(printer.name).child("wattusage").setValue(printer.wattUsage)
-//            database.child(printer.name).child("investmentreturn").setValue(printer.investmentReturn).addOnSuccessListener {
-//
-//
-//                Toast.makeText(this, "Successfully Saved Printer", Toast.LENGTH_SHORT).show()
-//
-//                setResult(RESULT_OK)
-//                finish()
-//            }.addOnFailureListener {
-//                Toast.makeText(this, "Failed to Save Printer", Toast.LENGTH_SHORT).show()
-//            }
-
-
 
             if (printer.name.isEmpty()) {
                 Snackbar.make(it, R.string.no_title, Snackbar.LENGTH_LONG)

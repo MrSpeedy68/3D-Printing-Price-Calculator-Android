@@ -1,13 +1,8 @@
 package org.wit.pricecalculator.models
 
-import android.widget.Toast
-import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import timber.log.Timber.i
-import java.util.*
 import kotlin.collections.ArrayList
 
 internal fun generateRandomIdMaterial(): Long {
