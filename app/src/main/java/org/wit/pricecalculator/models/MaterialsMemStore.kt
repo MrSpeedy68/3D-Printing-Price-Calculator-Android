@@ -19,7 +19,7 @@ class MaterialMemStore : MaterialStore {
 
     private lateinit var database: DatabaseReference
 
-    val materials = ArrayList<MaterialsModel>()
+    var materials = ArrayList<MaterialsModel>()
 
     override fun findAll(): List<MaterialsModel> {
         val dbmats = ArrayList<MaterialsModel>()
@@ -35,17 +35,10 @@ class MaterialMemStore : MaterialStore {
                         m.child("weight").value.toString().toInt(),
                         m.child("price").value.toString().toFloat())
                         dbmats.add(mat)
-
                 }
-
             }
-
-
         }
-
-        //i (database.child("Esun Black").child("name").get().toString())
-
-        //i (database.child("Esun Blue").child("type").get().toString())
+        materials = dbmats
         return dbmats
     }
 
@@ -73,15 +66,43 @@ class MaterialMemStore : MaterialStore {
     }
 
     override fun update(material: MaterialsModel) {
-        var foundMaterial: MaterialsModel? = materials.find { m -> m.id == material.id }
-        if (foundMaterial != null) {
-            foundMaterial.name = material.name
-            foundMaterial.type = material.type
-            foundMaterial.weight = material.weight
-            foundMaterial.price = material.price
-            foundMaterial.image = material.image
-            logAll()
+//        var foundMaterial: MaterialsModel? = materials.find { m -> m.id == material.id }
+//        if (foundMaterial != null) {
+//            foundMaterial.name = material.name
+//            foundMaterial.type = material.type
+//            foundMaterial.weight = material.weight
+//            foundMaterial.price = material.price
+//            foundMaterial.image = material.image
+//            logAll()
+//        }
+        database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
+        val mat = mapOf<String,Any>(
+            "id" to material.id,
+            "name" to material.name,
+            "type" to material.type,
+            "weight" to material.weight,
+            "price" to material.price
+        )
+
+        i ( material.name.toString())
+
+        database.get().addOnSuccessListener() {
+            if (it.exists()) {
+                for (m in it.children) {
+                    if (m.child("id").value == material.id) {
+
+                        //database.child(m.child("name").value.toString())
+                        database.child(material.name).setValue(mat)
+                        database.child(m.child("name").value.toString()).removeValue()
+                    }
+                }
+            }
         }
+//
+//        database.child(material.name).updateChildren(mat).addOnSuccessListener() {
+//
+//        }
+
     }
 
     override fun delete(material: MaterialsModel) {
