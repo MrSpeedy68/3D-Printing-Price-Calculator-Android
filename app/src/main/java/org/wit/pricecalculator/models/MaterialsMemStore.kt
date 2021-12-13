@@ -26,13 +26,18 @@ class MaterialMemStore : MaterialStore {
 
         database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
 
-        database.child("Esun Blue").get().addOnSuccessListener() {
+        database.get().addOnSuccessListener() {
             if(it.exists()) {
-                val m = MaterialsModel(it.child("id").value.toString().toLong(),
-                    it.child("name").value.toString(),
-                    it.child("type").value.toString(),
-                    it.child("weight").value.toString().toInt(), it.child("price").value.toString().toFloat())
-                dbmats.add(m)
+                for (m in it.children) {
+                    val mat = MaterialsModel(m.child("id").value.toString().toLong(),
+                        m.child("name").value.toString(),
+                        m.child("type").value.toString(),
+                        m.child("weight").value.toString().toInt(),
+                        m.child("price").value.toString().toFloat())
+                        dbmats.add(mat)
+
+                }
+
             }
 
 
