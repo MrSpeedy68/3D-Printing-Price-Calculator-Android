@@ -43,17 +43,18 @@ class MaterialMemStore : MaterialStore {
     }
 
     override fun create(material: MaterialsModel) {
-//        material.id = generateRandomIdMaterial()
-//        materials.add(material)
-//        logAll()
-        //database = Firebase.database("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
         database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
 
-        database.child(material.name).child("name").setValue(material.name)
-        database.child(material.name).child("id").setValue(material.id)
-        database.child(material.name).child("type").setValue(material.type)
-        database.child(material.name).child("weight").setValue(material.weight)
-        database.child(material.name).child("price").setValue(material.price)
+        val mat = mapOf<String,Any>(
+            "id" to material.id,
+            "name" to material.name,
+            "type" to material.type,
+            "weight" to material.weight,
+            "price" to material.price
+        )
+
+        database.child(material.name).setValue(mat)
+
 
         //                Toast.makeText(this, "Successfully Saved Material", Toast.LENGTH_SHORT).show()
 //
@@ -66,15 +67,6 @@ class MaterialMemStore : MaterialStore {
     }
 
     override fun update(material: MaterialsModel) {
-//        var foundMaterial: MaterialsModel? = materials.find { m -> m.id == material.id }
-//        if (foundMaterial != null) {
-//            foundMaterial.name = material.name
-//            foundMaterial.type = material.type
-//            foundMaterial.weight = material.weight
-//            foundMaterial.price = material.price
-//            foundMaterial.image = material.image
-//            logAll()
-//        }
         database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
         val mat = mapOf<String,Any>(
             "id" to material.id,
@@ -83,8 +75,6 @@ class MaterialMemStore : MaterialStore {
             "weight" to material.weight,
             "price" to material.price
         )
-
-        i ( material.name.toString())
 
         database.get().addOnSuccessListener() {
             if (it.exists()) {
@@ -98,21 +88,12 @@ class MaterialMemStore : MaterialStore {
                 }
             }
         }
-//
-//        database.child(material.name).updateChildren(mat).addOnSuccessListener() {
-//
-//        }
-
     }
 
     override fun delete(material: MaterialsModel) {
-        var foundMaterial: MaterialsModel? = materials.find { m -> m.id == material.id }
-        if (foundMaterial != null) {
-            materials.remove(foundMaterial)
-        }
+        database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
 
-
-
+        database.child(material.name).removeValue()
     }
 
     private fun logAll() {
