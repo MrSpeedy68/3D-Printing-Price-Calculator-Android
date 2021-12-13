@@ -1,41 +1,113 @@
 package org.wit.pricecalculator.models
 
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
 
 internal fun generateRandomIdTask(): Long {
-    return Random().nextLong()
+    return System.currentTimeMillis()
 }
 
 class TaskMemStore : TaskStore {
 
+    private lateinit var database: DatabaseReference
+
     var tasks = ArrayList<TaskModel>()
 
     override fun findAll(): List<TaskModel> {
+        database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Tasks")
+
+        database.get().addOnSuccessListener() {
+            tasks.clear()
+            if(it.exists()) {
+                for (t in it.children) {
+                    val tsk = TaskModel(t.child("id").value.toString().toLong(),
+                        t.child("name").value.toString(),
+                        t.child("description").value.toString(),
+                        t.child("address").value.toString(),
+                        t.child("taskcost").value.toString().toFloat(),
+                        t.child("shippingcost").value.toString().toFloat(),
+                        t.child("lat").value.toString().toDouble(),
+                        t.child("lng").value.toString().toDouble(),
+                        t.child("zoom").value.toString().toFloat())
+                    tasks.add(tsk)
+                }
+            }
+        }
         return tasks
     }
 
+    override fun initialize() {
+        var temp = findAll()
+    }
+
+
     override fun create(task: TaskModel) {
-        task.id = generateRandomIdUser()
-        tasks.add(task)
-        logAll()
+        database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Tasks")
+
+        val tsk = mapOf<String,Any>(
+            "id" to generateRandomIdMaterial(),
+            "name" to task.customerName,
+            "description" to task.taskDescription,
+            "address" to task.address,
+            "taskcost" to task.taskCost,
+            "shippingcost" to task.shippingCost,
+            "lat" to task.lat,
+            "lng" to task.lng,
+            "zoom" to task.zoom
+        )
+
+        database.child(task.customerName).setValue(tsk)
+
+
+        //                Toast.makeText(this, "Successfully Saved Material", Toast.LENGTH_SHORT).show()
+//
+//                setResult(RESULT_OK)
+//                finish()
+//            }.addOnFailureListener {
+//                Toast.makeText(this, "Failed to Save Material", Toast.LENGTH_SHORT).show()
+//            }
+
+        initialize()
     }
 
     override fun update(task: TaskModel) {
-        var foundTask: TaskModel? = tasks.find { t -> t.id == task.id }
+        database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Tasks")
+        val tsk = mapOf<String,Any>(
+            "id" to generateRandomIdMaterial(),
+            "name" to task.customerName,
+            "description" to task.taskDescription,
+            "address" to task.address,
+            "taskcost" to task.taskCost,
+            "shippingcost" to task.shippingCost,
+            "lat" to task.lat,
+            "lng" to task.lng,
+            "zoom" to task.zoom
+        )
 
-        if(foundTask != null) {
+        database.get().addOnSuccessListener() {
+            if (it.exists()) {
+                for (t in it.children) {
+                    if (t.child("id").value == task.id) {
 
-            logAll()
+                        //database.child(m.child("name").value.toString())
+                        database.child(task.customerName).setValue(tsk)
+                        database.child(t.child("name").value.toString()).removeValue()
+                    }
+                }
+            }
         }
+        initialize()
     }
 
     override fun delete(task: TaskModel) {
-        var foundTask: TaskModel? = tasks.find { t -> t.id == task.id }
-        if (foundTask != null) {
-            tasks.remove(foundTask)
-        }
+        database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Tasks")
+
+        database.child(task.customerName).removeValue()
+
+        initialize()
     }
 
     private fun logAll() {

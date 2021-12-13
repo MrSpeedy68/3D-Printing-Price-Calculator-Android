@@ -5,4 +5,5 @@ interface TaskStore {
     fun create(task: TaskModel)
     fun update(task: TaskModel)
     fun delete(task: TaskModel)
+    fun initialize()
 }
