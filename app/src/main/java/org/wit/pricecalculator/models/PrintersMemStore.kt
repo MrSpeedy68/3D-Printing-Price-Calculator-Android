@@ -79,8 +79,9 @@ class PrintersMemStore : PrinterStore {
                     if (p.child("id").value == printer.id) {
 
                         //database.child(m.child("name").value.toString())
-                        database.child(printer.name).setValue(prntr)
                         database.child(p.child("name").value.toString()).removeValue()
+                        database.child(printer.name).setValue(prntr)
+
                     }
                 }
             }

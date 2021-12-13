@@ -80,8 +80,9 @@ class MaterialMemStore : MaterialStore {
                     if (m.child("id").value == material.id) {
 
                         //database.child(m.child("name").value.toString())
-                        database.child(material.name).setValue(mat)
                         database.child(m.child("name").value.toString()).removeValue()
+                        database.child(material.name).setValue(mat)
+
                     }
                 }
             }

@@ -3,6 +3,7 @@ package org.wit.pricecalculator.models
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import timber.log.Timber
+import timber.log.Timber.i
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -87,14 +88,19 @@ class TaskMemStore : TaskStore {
             "zoom" to task.zoom
         )
 
+        i ("Entered Update")
+
         database.get().addOnSuccessListener() {
             if (it.exists()) {
                 for (t in it.children) {
                     if (t.child("id").value == task.id) {
 
+
+                        i ("Entered deleting")
                         //database.child(m.child("name").value.toString())
-                        database.child(task.customerName).setValue(tsk)
                         database.child(t.child("name").value.toString()).removeValue()
+                        database.child(task.customerName).setValue(tsk)
+
                     }
                 }
             }

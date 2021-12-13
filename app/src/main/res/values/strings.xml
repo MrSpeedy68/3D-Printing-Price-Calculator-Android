@@ -57,6 +57,7 @@
     <string name="button_location">Set Location</string>
     <string name="button_task">Tasks</string>
     <string name="button_addTask">Add Task</string>
+    <string name="button_saveTask">Save Task</string>
     <string name="title_activity_map">Map</string>
 
     <string name="hint_customerName">Customer Name</string>

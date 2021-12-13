@@ -82,8 +82,9 @@ class UserMemStore : UserStore { //This class will be replaced once Google login
                     if (u.child("id").value == user.userId) {
 
                         //database.child(m.child("name").value.toString())
-                        database.child(user.userName).setValue(usr)
                         database.child(u.child("name").value.toString()).removeValue()
+                        database.child(user.userName).setValue(usr)
+
                     }
                 }
             }

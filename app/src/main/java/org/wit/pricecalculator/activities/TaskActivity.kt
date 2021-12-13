@@ -48,7 +48,7 @@ class TaskActivity  : AppCompatActivity() {
             binding.taskAddress.setText(task.address)
             binding.taskCosts.setText(task.taskCost.toString())
             binding.shippingCosts.setText(task.shippingCost.toString())
-            binding.btnAdd.text = getString(R.string.button_addTask)
+            binding.btnAdd.text = getString(R.string.button_saveTask)
 
         }
 
@@ -58,19 +58,16 @@ class TaskActivity  : AppCompatActivity() {
             task.address = binding.taskAddress.text.toString()
             task.taskCost = binding.taskCosts.text.toString().toFloat()
             task.shippingCost = binding.shippingCosts.text.toString().toFloat()
-//            if(binding.taskAddress.text != null) {
-//                val coords: GeoPointModel? =
-//                    getLocationFromAddress(binding.taskAddress.text.toString())
-//
-//                i("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-//                i(coords.toString())
-//
-//                if (coords != null) {
-//                    task.lat = coords.latitude
-//                    task.lng = coords.longitude
-//                    task.zoom = 15f
-//                }
-//            }
+            if(binding.taskAddress.text != null) {
+                val coords: GeoPointModel? =
+                    getLocationFromAddress(binding.taskAddress.text.toString())
+
+                if (coords != null) {
+                    task.lat = coords.latitude
+                    task.lng = coords.longitude
+                    task.zoom = 15f
+                }
+            }
 
             if (task.customerName.isEmpty()) {
                 Snackbar.make(it,R.string.no_title, Snackbar.LENGTH_LONG)
@@ -88,16 +85,6 @@ class TaskActivity  : AppCompatActivity() {
         }
 
         registerMapCallback()
-
-        binding.btnTest.setOnClickListener {
-            if(binding.taskAddress.text != null) {
-                val coords: GeoPointModel? =
-                    getLocationFromAddress(binding.taskAddress.text.toString())
-
-                i("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-                i(coords.toString())
-            }
-        }
 
         binding.btnMap.setOnClickListener {
 
