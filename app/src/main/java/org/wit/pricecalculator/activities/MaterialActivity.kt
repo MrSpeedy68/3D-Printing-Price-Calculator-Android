@@ -5,10 +5,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.squareup.picasso.Picasso
 import org.wit.pricecalculator.R
 import org.wit.pricecalculator.databinding.ActivityMaterialBinding
@@ -16,6 +21,7 @@ import org.wit.pricecalculator.helpers.showImagePicker
 import org.wit.pricecalculator.main.MainApp
 import org.wit.pricecalculator.models.MaterialsModel
 import timber.log.Timber.i
+import com.google.firebase.ktx.Firebase
 
 
 class MaterialActivity : AppCompatActivity() {
@@ -58,6 +64,7 @@ class MaterialActivity : AppCompatActivity() {
             material.type = binding.materialType.text.toString()
             material.weight = binding.materialWeight.text.toString().toInt()
             material.price = binding.materialPrice.text.toString().toFloat()
+
             if (material.name.isEmpty()) {
                 Snackbar.make(it,R.string.no_title, Snackbar.LENGTH_LONG)
                     .show()
@@ -65,6 +72,7 @@ class MaterialActivity : AppCompatActivity() {
                 if (edit) {
                     app.materials.update(material.copy())
                 } else {
+
                     app.materials.create(material.copy())
                 }
             }
@@ -74,7 +82,6 @@ class MaterialActivity : AppCompatActivity() {
         }
 
         binding.chooseImage.setOnClickListener {
-            //i("Select image")
             showImagePicker(imageIntentLauncher)
         }
 

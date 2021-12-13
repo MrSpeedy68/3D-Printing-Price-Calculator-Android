@@ -48,7 +48,7 @@ class TaskActivity  : AppCompatActivity() {
             binding.taskAddress.setText(task.address)
             binding.taskCosts.setText(task.taskCost.toString())
             binding.shippingCosts.setText(task.shippingCost.toString())
-            binding.btnAdd.text = getString(R.string.button_addTask)
+            binding.btnAdd.text = getString(R.string.button_saveTask)
 
         }
 
@@ -61,9 +61,6 @@ class TaskActivity  : AppCompatActivity() {
             if(binding.taskAddress.text != null) {
                 val coords: GeoPointModel? =
                     getLocationFromAddress(binding.taskAddress.text.toString())
-
-                i("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-                i(coords.toString())
 
                 if (coords != null) {
                     task.lat = coords.latitude
@@ -88,16 +85,6 @@ class TaskActivity  : AppCompatActivity() {
         }
 
         registerMapCallback()
-
-        binding.btnTest.setOnClickListener {
-            if(binding.taskAddress.text != null) {
-                val coords: GeoPointModel? =
-                    getLocationFromAddress(binding.taskAddress.text.toString())
-
-                i("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-                i(coords.toString())
-            }
-        }
 
         binding.btnMap.setOnClickListener {
 

@@ -1,47 +1,101 @@
 package org.wit.pricecalculator.models
 
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import timber.log.Timber.i
-import java.util.*
 import kotlin.collections.ArrayList
 
 internal fun generateRandomIdMaterial(): Long {
-    return Random().nextLong()
+    return System.currentTimeMillis()
 }
 
 class MaterialMemStore : MaterialStore {
 
-    val materials = ArrayList<MaterialsModel>()
+
+    private lateinit var database: DatabaseReference
+
+    var materials = ArrayList<MaterialsModel>()
 
     override fun findAll(): List<MaterialsModel> {
+        database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
+
+        database.get().addOnSuccessListener() {
+            materials.clear()
+            if(it.exists()) {
+                for (m in it.children) {
+                    val mat = MaterialsModel(m.child("id").value.toString().toLong(),
+                        m.child("name").value.toString(),
+                        m.child("type").value.toString(),
+                        m.child("weight").value.toString().toInt(),
+                        m.child("price").value.toString().toFloat())
+                        materials.add(mat)
+                }
+            }
+        }
         return materials
     }
 
+    override fun initialize() {
+        var temp = findAll()
+    }
+
     override fun create(material: MaterialsModel) {
-        material.id = generateRandomIdMaterial()
-        materials.add(material)
-        logAll()
+        database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
+
+        val mat = mapOf<String,Any>(
+            "id" to generateRandomIdMaterial(),
+            "name" to material.name,
+            "type" to material.type,
+            "weight" to material.weight,
+            "price" to material.price
+        )
+
+        database.child(material.name).setValue(mat)
+
+
+        //                Toast.makeText(this, "Successfully Saved Material", Toast.LENGTH_SHORT).show()
+//
+//                setResult(RESULT_OK)
+//                finish()
+//            }.addOnFailureListener {
+//                Toast.makeText(this, "Failed to Save Material", Toast.LENGTH_SHORT).show()
+//            }
+
+        initialize()
     }
 
     override fun update(material: MaterialsModel) {
-        var foundMaterial: MaterialsModel? = materials.find { m -> m.id == material.id }
-        if (foundMaterial != null) {
-            foundMaterial.name = material.name
-            foundMaterial.type = material.type
-            foundMaterial.weight = material.weight
-            foundMaterial.price = material.price
-            foundMaterial.image = material.image
-            logAll()
+        database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
+        val mat = mapOf<String,Any>(
+            "id" to material.id,
+            "name" to material.name,
+            "type" to material.type,
+            "weight" to material.weight,
+            "price" to material.price
+        )
+
+        database.get().addOnSuccessListener() {
+            if (it.exists()) {
+                for (m in it.children) {
+                    if (m.child("id").value == material.id) {
+
+                        //database.child(m.child("name").value.toString())
+                        database.child(m.child("name").value.toString()).removeValue()
+                        database.child(material.name).setValue(mat)
+
+                    }
+                }
+            }
         }
+        initialize()
     }
 
     override fun delete(material: MaterialsModel) {
-        var foundMaterial: MaterialsModel? = materials.find { m -> m.id == material.id }
-        if (foundMaterial != null) {
-            materials.remove(foundMaterial)
-        }
+        database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
 
+        database.child(material.name).removeValue()
 
-
+        initialize()
     }
 
     private fun logAll() {

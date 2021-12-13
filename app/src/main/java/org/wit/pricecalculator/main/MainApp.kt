@@ -1,6 +1,7 @@
 package org.wit.pricecalculator.main
 
 import android.app.Application
+import com.google.firebase.FirebaseApp
 import org.wit.pricecalculator.models.MaterialMemStore
 import org.wit.pricecalculator.models.PrintersMemStore
 import org.wit.pricecalculator.models.TaskMemStore
@@ -22,5 +23,9 @@ class MainApp : Application() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         i("3DPPC started")
+
+        FirebaseApp.initializeApp(this)
+
+        materials.initialize()
     }
 }

@@ -5,5 +5,6 @@ interface PrinterStore {
     fun create(printer: PrinterModel)
     fun update(printer: PrinterModel)
     fun delete(printer: PrinterModel)
+    fun initialize()
 
 }

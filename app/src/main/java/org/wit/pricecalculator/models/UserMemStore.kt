@@ -1,45 +1,103 @@
 package org.wit.pricecalculator.models
 
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import timber.log.Timber.i
 import timber.log.Timber.log
 import java.util.*
 import kotlin.collections.ArrayList
 
 internal fun generateRandomIdUser(): Long {
-    return Random().nextLong()
+    return System.currentTimeMillis()
 }
 
 class UserMemStore : UserStore { //This class will be replaced once Google login is implemented
 
+    private lateinit var database: DatabaseReference
+
     var users = ArrayList<UserModel>()
 
     override fun findAll(): List<UserModel> {
+        database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users")
+
+        database.get().addOnSuccessListener() {
+            users.clear()
+            if(it.exists()) {
+                for (u in it.children) {
+                    val usr = UserModel(u.child("id").value.toString().toLong(),
+                        u.child("name").value.toString(),
+                        u.child("labourcost").value.toString().toFloat(),
+                        u.child("energycost").value.toString().toFloat(),
+                        u.child("currency").value.toString() )
+
+                        users.add(usr)
+                }
+            }
+        }
         return users
     }
 
+    override fun initialize() {
+        var temp = findAll()
+    }
+
     override fun create(user: UserModel) {
-        user.userId = generateRandomIdUser()
-        users.add(user)
-        logAll()
+        database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users")
+
+        val usr = mapOf<String,Any>(
+            "id" to generateRandomIdUser(),
+            "name" to user.userName,
+            "labourcost" to user.labourCost,
+            "energycost" to user.energyCost,
+            "currency" to user.currency
+        )
+
+        database.child(user.userName).setValue(usr)
+
+
+        //                Toast.makeText(this, "Successfully Saved Material", Toast.LENGTH_SHORT).show()
+//
+//                setResult(RESULT_OK)
+//                finish()
+//            }.addOnFailureListener {
+//                Toast.makeText(this, "Failed to Save Material", Toast.LENGTH_SHORT).show()
+//            }
+
+        initialize()
     }
 
     override fun update(user: UserModel) {
-        var foundUser: UserModel? = users.find { u -> u.userId == user.userId }
+        database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users")
+        val usr = mapOf<String,Any>(
+            "id" to user.userId,
+            "name" to user.userName,
+            "labourcost" to user.labourCost,
+            "energycost" to user.energyCost,
+            "currency" to user.currency
+        )
 
-        if(foundUser != null) {
-            foundUser.userName = user.userName
-            foundUser.labourCost = user.labourCost
-            foundUser.energyCost = user.energyCost
-            foundUser.currency = user.currency
-            logAll()
+        database.get().addOnSuccessListener() {
+            if (it.exists()) {
+                for (u in it.children) {
+                    if (u.child("id").value == user.userId) {
+
+                        //database.child(m.child("name").value.toString())
+                        database.child(u.child("name").value.toString()).removeValue()
+                        database.child(user.userName).setValue(usr)
+
+                    }
+                }
+            }
         }
+        initialize()
     }
 
     override fun delete(user: UserModel) {
-        var foundUser: UserModel? = users.find { u -> u.userId == user.userId }
-        if (foundUser != null) {
-            users.remove(foundUser)
-        }
+        database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users")
+
+        database.child(user.userName).removeValue()
+
+        initialize()
     }
 
     private fun logAll() {

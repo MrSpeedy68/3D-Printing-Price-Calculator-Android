@@ -74,6 +74,8 @@ class CalculationActivity : AppCompatActivity(){
                 id: Long
             ) {
                 selectedMaterial = materialObjects[position]
+                i ("+++++++++++++++++++++++++++++++++++")
+                i (selectedMaterial.name.toString())
 
             }
 
