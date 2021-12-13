@@ -8,6 +8,7 @@ import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.database.DatabaseReference
 import org.wit.pricecalculator.R
 import org.wit.pricecalculator.adapters.MaterialAdapter
 import org.wit.pricecalculator.adapters.MaterialListiner
@@ -19,6 +20,7 @@ import org.wit.pricecalculator.models.MaterialsModel
 class MaterialListActivity : AppCompatActivity(), MaterialListiner {
 
     lateinit var app: MainApp
+    private lateinit var database: DatabaseReference
     private lateinit var binding: ActivityMaterialListBinding
     private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
 
@@ -33,6 +35,8 @@ class MaterialListActivity : AppCompatActivity(), MaterialListiner {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = MaterialAdapter(app.materials.findAll(),this)
+
+
 
         registerRefreshCallback()
     }

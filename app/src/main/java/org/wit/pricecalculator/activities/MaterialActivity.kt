@@ -69,29 +69,24 @@ class MaterialActivity : AppCompatActivity() {
 //            database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
 //            database.child(material.name).setValue(material).addOnSuccessListener {
 
+            if (material.name.isEmpty()) {
+                Snackbar.make(it,R.string.no_title, Snackbar.LENGTH_LONG)
+                    .show()
+            } else {
+                if (edit) {
+                    app.materials.update(material.copy())
+                } else {
 
+                    app.materials.create(material.copy())
+                }
+            }
+            i("add Button Pressed: $material")
+            setResult(RESULT_OK)
+            finish()
 
-            database = Firebase.database("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
 
 //            val imageRef = database.child("images/${material.image}")
 //            val uploadTask = imageRef.putFile(material.image)
-
-
-
-            database.child(material.name).child("name").setValue(material.name)
-            database.child(material.name).child("id").setValue(material.id)
-            database.child(material.name).child("type").setValue(material.type)
-            database.child(material.name).child("weight").setValue(material.weight)
-            database.child(material.name).child("price").setValue(material.price).addOnSuccessListener {
-
-
-                Toast.makeText(this, "Successfully Saved Material", Toast.LENGTH_SHORT).show()
-
-                setResult(RESULT_OK)
-                finish()
-            }.addOnFailureListener {
-                Toast.makeText(this, "Failed to Save Material", Toast.LENGTH_SHORT).show()
-            }
 
 //            if (material.name.isEmpty()) {
 //                Snackbar.make(it,R.string.no_title, Snackbar.LENGTH_LONG)
