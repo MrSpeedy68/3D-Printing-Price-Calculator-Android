@@ -1,8 +1,15 @@
 package org.wit.pricecalculator.models
 
+import android.graphics.BitmapFactory
+import android.net.Uri
+import androidx.core.net.toUri
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 import timber.log.Timber.i
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.collections.ArrayList
 
 internal fun generateRandomIdMaterial(): Long {
@@ -19,15 +26,26 @@ class MaterialMemStore : MaterialStore {
     override fun findAll(): List<MaterialsModel> {
         database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
 
+
         database.get().addOnSuccessListener() {
             materials.clear()
             if(it.exists()) {
                 for (m in it.children) {
+//                    val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${m.child("name").value.toString()}")
+//
+//                    val localFile = File.createTempFile(m.child("name").value.toString(),"jpg")
+//                    var newImg: Uri
+//                    storageReference.getFile(localFile).addOnSuccessListener {
+//                        val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+//                        newImg = Uri
+//                    }
+
                     val mat = MaterialsModel(m.child("id").value.toString().toLong(),
                         m.child("name").value.toString(),
                         m.child("type").value.toString(),
                         m.child("weight").value.toString().toInt(),
-                        m.child("price").value.toString().toFloat())
+                        m.child("price").value.toString().toFloat(),
+                        Uri.parse(m.child("image").value.toString()))
                         materials.add(mat)
                 }
             }
@@ -47,19 +65,15 @@ class MaterialMemStore : MaterialStore {
             "name" to material.name,
             "type" to material.type,
             "weight" to material.weight,
-            "price" to material.price
+            "price" to material.price,
+            "image" to material.image.toString()
         )
+
+//        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${material.name}")
+//        storageReference.putFile(material.image)
 
         database.child(material.name).setValue(mat)
 
-
-        //                Toast.makeText(this, "Successfully Saved Material", Toast.LENGTH_SHORT).show()
-//
-//                setResult(RESULT_OK)
-//                finish()
-//            }.addOnFailureListener {
-//                Toast.makeText(this, "Failed to Save Material", Toast.LENGTH_SHORT).show()
-//            }
 
         initialize()
     }
@@ -71,7 +85,8 @@ class MaterialMemStore : MaterialStore {
             "name" to material.name,
             "type" to material.type,
             "weight" to material.weight,
-            "price" to material.price
+            "price" to material.price,
+            "image" to material.image.toString()
         )
 
         database.get().addOnSuccessListener() {
