@@ -25,7 +25,7 @@ class UserListActivity: AppCompatActivity(), UserListiner {
         super.onCreate(savedInstanceState)
         binding = ActivityUserListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.toolbar.title = title
+        binding.toolbar.title = "Users"
         setSupportActionBar(binding.toolbar)
         app = application as MainApp
 

@@ -25,7 +25,7 @@ class TaskListActivity : AppCompatActivity(), TaskListiner {
         super.onCreate(savedInstanceState)
         binding = ActivityTaskListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.toolbar.title = title
+        binding.toolbar.title = "Tasks"
         setSupportActionBar(binding.toolbar)
         app = application as MainApp
 

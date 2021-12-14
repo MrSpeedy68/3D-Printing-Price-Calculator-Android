@@ -36,7 +36,7 @@ class MaterialActivity : AppCompatActivity() {
         var edit = false
         binding = ActivityMaterialBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.toolbarAdd.title = title
+        binding.toolbarAdd.title = "Materials"
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp

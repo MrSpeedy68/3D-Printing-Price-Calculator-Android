@@ -27,5 +27,8 @@ class MainApp : Application() {
         FirebaseApp.initializeApp(this)
 
         materials.initialize()
+        printers.initialize()
+        users.initialize()
+        tasks.initialize()
     }
 }

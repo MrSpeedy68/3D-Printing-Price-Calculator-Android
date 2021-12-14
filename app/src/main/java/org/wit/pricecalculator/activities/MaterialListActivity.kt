@@ -27,7 +27,7 @@ class MaterialListActivity : AppCompatActivity(), MaterialListiner {
         super.onCreate(savedInstanceState)
         binding = ActivityMaterialListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.toolbar.title = title
+        binding.toolbar.title = "Materials"
         setSupportActionBar(binding.toolbar)
         app = application as MainApp
 

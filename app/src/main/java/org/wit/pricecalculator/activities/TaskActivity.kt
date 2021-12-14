@@ -35,7 +35,7 @@ class TaskActivity  : AppCompatActivity() {
         var edit = false
         binding = ActivityTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.toolbarAdd.title = title
+        binding.toolbarAdd.title = "Tasks"
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp

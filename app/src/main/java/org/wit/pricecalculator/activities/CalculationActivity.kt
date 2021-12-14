@@ -38,7 +38,7 @@ class CalculationActivity : AppCompatActivity(){
         setContentView(R.layout.activity_calculation)
         binding = ActivityCalculationBinding.inflate(layoutInflater)
         setContentView((binding.root))
-        binding.toolbarAdd.title = title
+        binding.toolbarAdd.title = "Calculation"
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp
@@ -49,12 +49,6 @@ class CalculationActivity : AppCompatActivity(){
 
 
         val calcButton = findViewById<Button>(R.id.btnCalculate)
-
-
-
-
-
-
 
 
         //Populate Material Spinner with all material objects

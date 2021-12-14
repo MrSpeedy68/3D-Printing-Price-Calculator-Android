@@ -30,7 +30,7 @@ class UserActivity : AppCompatActivity() {
         var edit = false
         binding = ActivityUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.toolbarAdd.title = title
+        binding.toolbarAdd.title = "Users"
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp

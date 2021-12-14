@@ -51,7 +51,7 @@
                     android:maxLength="25"
                     android:maxLines="1"
                     android:padding="8dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
                 <EditText
@@ -65,7 +65,7 @@
                     android:maxLength="25"
                     android:maxLines="1"
                     android:padding="8dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
                 <EditText
@@ -79,7 +79,7 @@
                     android:maxLength="25"
                     android:maxLines="1"
                     android:padding="8dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
                 <EditText
@@ -93,7 +93,7 @@
                     android:maxLength="25"
                     android:maxLines="1"
                     android:padding="8dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
                 <Button

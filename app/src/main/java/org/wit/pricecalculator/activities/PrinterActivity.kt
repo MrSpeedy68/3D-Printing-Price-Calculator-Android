@@ -34,7 +34,7 @@ class PrinterActivity : AppCompatActivity() {
         var edit = false
         binding = ActivityPrinterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.toolbarAdd.title = title
+        binding.toolbarAdd.title = "Printers"
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp

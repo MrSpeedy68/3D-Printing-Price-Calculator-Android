@@ -25,7 +25,7 @@ class PrinterListActivity : AppCompatActivity(), PrinterListiner {
         super.onCreate(savedInstanceState)
         binding = ActivityPrinterListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.toolbar.title = title
+        binding.toolbar.title = "Printers"
         setSupportActionBar(binding.toolbar)
         app = application as MainApp
 
