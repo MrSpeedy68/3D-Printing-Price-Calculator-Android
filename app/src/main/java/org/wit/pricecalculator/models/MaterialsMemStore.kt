@@ -68,20 +68,12 @@ class MaterialMemStore : MaterialStore {
             "price" to material.price,
             "image" to material.image.toString()
         )
-        
+
 //        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${material.name}")
 //        storageReference.putFile(material.image)
 
         database.child(material.name).setValue(mat)
 
-
-        //                Toast.makeText(this, "Successfully Saved Material", Toast.LENGTH_SHORT).show()
-//
-//                setResult(RESULT_OK)
-//                finish()
-//            }.addOnFailureListener {
-//                Toast.makeText(this, "Failed to Save Material", Toast.LENGTH_SHORT).show()
-//            }
 
         initialize()
     }

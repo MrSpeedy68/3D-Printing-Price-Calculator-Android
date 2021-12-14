@@ -1,5 +1,6 @@
 package org.wit.pricecalculator.models
 
+import android.net.Uri
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import timber.log.Timber.i
@@ -26,7 +27,8 @@ class PrintersMemStore : PrinterStore {
                         p.child("name").value.toString(),
                         p.child("price").value.toString().toFloat(),
                         p.child("wattusage").value.toString().toInt(),
-                        p.child("investmentreturn").value.toString().toInt())
+                        p.child("investmentreturn").value.toString().toInt(),
+                        Uri.parse(p.child("image").value.toString()))
                         printers.add(prntr)
                 }
             }
@@ -46,19 +48,11 @@ class PrintersMemStore : PrinterStore {
             "name" to printer.name,
             "price" to printer.price,
             "wattusage" to printer.wattUsage,
-            "investmentreturn" to printer.investmentReturn
+            "investmentreturn" to printer.investmentReturn,
+            "image" to printer.image.toString()
         )
 
         database.child(printer.name).setValue(prntr)
-
-
-        //                Toast.makeText(this, "Successfully Saved Material", Toast.LENGTH_SHORT).show()
-//
-//                setResult(RESULT_OK)
-//                finish()
-//            }.addOnFailureListener {
-//                Toast.makeText(this, "Failed to Save Material", Toast.LENGTH_SHORT).show()
-//            }
 
         initialize()
     }
@@ -70,7 +64,8 @@ class PrintersMemStore : PrinterStore {
             "name" to printer.name,
             "price" to printer.price,
             "wattusage" to printer.wattUsage,
-            "investmentreturn" to printer.investmentReturn
+            "investmentreturn" to printer.investmentReturn,
+            "image" to printer.image.toString()
         )
 
         database.get().addOnSuccessListener() {
