@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import org.wit.pricecalculator.databinding.CardMaterialBinding
 import org.wit.pricecalculator.models.MaterialsModel
+import timber.log.Timber.i
 
 interface MaterialListiner {
     fun onMaterialClick(materials: MaterialsModel)
