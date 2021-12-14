@@ -1,5 +1,6 @@
 package org.wit.pricecalculator.models
 
+import android.net.Uri
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import timber.log.Timber.i
@@ -28,7 +29,8 @@ class UserMemStore : UserStore { //This class will be replaced once Google login
                         u.child("name").value.toString(),
                         u.child("labourcost").value.toString().toFloat(),
                         u.child("energycost").value.toString().toFloat(),
-                        u.child("currency").value.toString() )
+                        u.child("currency").value.toString(),
+                        Uri.parse(u.child("image").value.toString()) )
 
                         users.add(usr)
                 }
@@ -49,19 +51,12 @@ class UserMemStore : UserStore { //This class will be replaced once Google login
             "name" to user.userName,
             "labourcost" to user.labourCost,
             "energycost" to user.energyCost,
-            "currency" to user.currency
+            "currency" to user.currency,
+            "image" to user.image.toString()
         )
 
         database.child(user.userName).setValue(usr)
 
-
-        //                Toast.makeText(this, "Successfully Saved Material", Toast.LENGTH_SHORT).show()
-//
-//                setResult(RESULT_OK)
-//                finish()
-//            }.addOnFailureListener {
-//                Toast.makeText(this, "Failed to Save Material", Toast.LENGTH_SHORT).show()
-//            }
 
         initialize()
     }
@@ -73,7 +68,8 @@ class UserMemStore : UserStore { //This class will be replaced once Google login
             "name" to user.userName,
             "labourcost" to user.labourCost,
             "energycost" to user.energyCost,
-            "currency" to user.currency
+            "currency" to user.currency,
+            "image" to user.image.toString()
         )
 
         database.get().addOnSuccessListener() {
