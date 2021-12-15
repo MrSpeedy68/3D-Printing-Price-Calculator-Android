@@ -31,14 +31,6 @@ class MaterialMemStore : MaterialStore {
             materials.clear()
             if(it.exists()) {
                 for (m in it.children) {
-//                    val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${m.child("name").value.toString()}")
-//
-//                    val localFile = File.createTempFile(m.child("name").value.toString(),"jpg")
-//                    var newImg: Uri
-//                    storageReference.getFile(localFile).addOnSuccessListener {
-//                        val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-//                        newImg = Uri
-//                    }
 
                     val mat = MaterialsModel(m.child("id").value.toString().toLong(),
                         m.child("name").value.toString(),
@@ -60,49 +52,97 @@ class MaterialMemStore : MaterialStore {
     override fun create(material: MaterialsModel) {
         database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
 
-        val mat = mapOf<String,Any>(
-            "id" to generateRandomIdMaterial(),
-            "name" to material.name,
-            "type" to material.type,
-            "weight" to material.weight,
-            "price" to material.price,
-            "image" to material.image.toString()
-        )
+        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${material.name}")
 
-//        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${material.name}")
-//        storageReference.putFile(material.image)
+        var uploadTask = storageReference.putFile(material.image)
+        var downloadUri = ""
 
-        database.child(material.name).setValue(mat)
+        uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            storageReference.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                downloadUri = task.result.toString()
+
+                i ("+_______________________________")
+                i (downloadUri)
+
+                val mat = mapOf<String,Any>(
+                    "id" to generateRandomIdMaterial(),
+                    "name" to material.name,
+                    "type" to material.type,
+                    "weight" to material.weight,
+                    "price" to material.price,
+                    "image" to downloadUri
+                )
+
+                database.child(material.name).setValue(mat)
+
+                initialize()
 
 
-        initialize()
+            } else {
+                // Handle failures
+                // ...
+            }
+        }
     }
 
     override fun update(material: MaterialsModel) {
         database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
-        val mat = mapOf<String,Any>(
-            "id" to material.id,
-            "name" to material.name,
-            "type" to material.type,
-            "weight" to material.weight,
-            "price" to material.price,
-            "image" to material.image.toString()
-        )
+        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${material.name}")
 
-        database.get().addOnSuccessListener() {
-            if (it.exists()) {
-                for (m in it.children) {
-                    if (m.child("id").value == material.id) {
+        var uploadTask = storageReference.putFile(material.image)
+        var downloadUri = ""
 
-                        //database.child(m.child("name").value.toString())
-                        database.child(m.child("name").value.toString()).removeValue()
-                        database.child(material.name).setValue(mat)
-
-                    }
+        uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
                 }
             }
+            storageReference.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                downloadUri = task.result.toString()
+
+                i ("+_______________________________")
+                i (downloadUri)
+
+                val mat = mapOf<String,Any>(
+                    "id" to generateRandomIdMaterial(),
+                    "name" to material.name,
+                    "type" to material.type,
+                    "weight" to material.weight,
+                    "price" to material.price,
+                    "image" to downloadUri
+                )
+
+                database.get().addOnSuccessListener() {
+                    if (it.exists()) {
+                        for (m in it.children) {
+                            if (m.child("id").value == material.id) {
+
+                                //database.child(m.child("name").value.toString())
+                                database.child(m.child("name").value.toString()).removeValue()
+                                database.child(material.name).setValue(mat)
+
+                            }
+                        }
+                    }
+                }
+
+                initialize()
+
+            } else {
+                // Handle failures
+                // ...
+            }
         }
-        initialize()
     }
 
     override fun delete(material: MaterialsModel) {
