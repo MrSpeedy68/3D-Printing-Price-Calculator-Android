@@ -38,7 +38,7 @@ class MaterialMemStore : MaterialStore {
                         m.child("weight").value.toString().toInt(),
                         m.child("price").value.toString().toFloat(),
                         Uri.parse(m.child("image").value.toString()))
-                    materials.add(mat)
+                        materials.add(mat)
                 }
             }
         }
