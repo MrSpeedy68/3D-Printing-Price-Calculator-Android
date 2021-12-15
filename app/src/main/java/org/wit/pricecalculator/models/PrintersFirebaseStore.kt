@@ -3,6 +3,7 @@ package org.wit.pricecalculator.models
 import android.net.Uri
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 import timber.log.Timber.i
 import kotlin.collections.ArrayList
 
@@ -43,45 +44,96 @@ class PrintersMemStore : PrinterStore {
     override fun create(printer: PrinterModel) {
         database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Printers")
 
-        val prntr = mapOf<String,Any>(
-            "id" to generateRandomIdPrinter(),
-            "name" to printer.name,
-            "price" to printer.price,
-            "wattusage" to printer.wattUsage,
-            "investmentreturn" to printer.investmentReturn,
-            "image" to printer.image.toString()
-        )
+        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${printer.name}")
 
-        database.child(printer.name).setValue(prntr)
+        var uploadTask = storageReference.putFile(printer.image)
+        var downloadUri = ""
 
-        initialize()
+        uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            storageReference.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                downloadUri = task.result.toString()
+
+                i ("+_______________________________")
+                i (downloadUri)
+
+                val prntr = mapOf<String,Any>(
+                    "id" to generateRandomIdPrinter(),
+                    "name" to printer.name,
+                    "price" to printer.price,
+                    "wattusage" to printer.wattUsage,
+                    "investmentreturn" to printer.investmentReturn,
+                    "image" to downloadUri
+                )
+
+                database.child(printer.name).setValue(prntr)
+
+                initialize()
+
+            } else {
+                // Handle failures
+                // ...
+            }
+        }
     }
 
     override fun update(printer: PrinterModel) {
         database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Printers")
-        val prntr = mapOf<String,Any>(
-            "id" to generateRandomIdPrinter(),
-            "name" to printer.name,
-            "price" to printer.price,
-            "wattusage" to printer.wattUsage,
-            "investmentreturn" to printer.investmentReturn,
-            "image" to printer.image.toString()
-        )
 
-        database.get().addOnSuccessListener() {
-            if (it.exists()) {
-                for (p in it.children) {
-                    if (p.child("id").value == printer.id) {
+        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${printer.name}")
 
-                        //database.child(m.child("name").value.toString())
-                        database.child(p.child("name").value.toString()).removeValue()
-                        database.child(printer.name).setValue(prntr)
+        var uploadTask = storageReference.putFile(printer.image)
+        var downloadUri = ""
 
-                    }
+        uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
                 }
             }
+            storageReference.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                downloadUri = task.result.toString()
+
+                i ("+_______________________________")
+                i (downloadUri)
+
+
+                val prntr = mapOf<String,Any>(
+                    "id" to generateRandomIdPrinter(),
+                    "name" to printer.name,
+                    "price" to printer.price,
+                    "wattusage" to printer.wattUsage,
+                    "investmentreturn" to printer.investmentReturn,
+                    "image" to printer.image.toString()
+                )
+
+                database.get().addOnSuccessListener() {
+                    if (it.exists()) {
+                        for (p in it.children) {
+                            if (p.child("id").value == printer.id) {
+
+                                //database.child(m.child("name").value.toString())
+                                database.child(p.child("name").value.toString()).removeValue()
+                                database.child(printer.name).setValue(prntr)
+
+                            }
+                        }
+                    }
+                }
+                initialize()
+            } else {
+                // Handle failures
+                // ...
+            }
         }
-        initialize()
     }
 
     override fun delete(printer: PrinterModel) {
