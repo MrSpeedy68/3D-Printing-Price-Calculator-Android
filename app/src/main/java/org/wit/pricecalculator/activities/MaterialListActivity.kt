@@ -35,8 +35,6 @@ class MaterialListActivity : AppCompatActivity(), MaterialListiner {
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = MaterialAdapter(app.materials.findAll(),this)
 
-
-
         registerRefreshCallback()
     }
 

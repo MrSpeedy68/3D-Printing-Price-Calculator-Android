@@ -6,6 +6,7 @@ import androidx.core.net.toUri
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import timber.log.Timber.i
 import java.io.File
 import java.text.SimpleDateFormat
@@ -31,13 +32,13 @@ class MaterialMemStore : MaterialStore {
             materials.clear()
             if(it.exists()) {
                 for (m in it.children) {
-//                    val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${m.child("name").value.toString()}")
+//                    val storageRef = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/")
 //
 //                    val localFile = File.createTempFile(m.child("name").value.toString(),"jpg")
-//                    var newImg: Uri
-//                    storageReference.getFile(localFile).addOnSuccessListener {
-//                        val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-//                        newImg = Uri
+//                    var newImg: Uri = Uri.EMPTY
+//                    storageRef.getFile(localFile).addOnSuccessListener {
+//                        //val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+//                        newImg = Uri.parse(localFile.absolutePath)
 //                    }
 
                     val mat = MaterialsModel(m.child("id").value.toString().toLong(),
@@ -60,6 +61,14 @@ class MaterialMemStore : MaterialStore {
     override fun create(material: MaterialsModel) {
         database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
 
+//        var newImage = ""
+//        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${material.name}")
+//        storageReference.putFile(material.image).addOnSuccessListener {
+//            storageReference.downloadUrl.addOnSuccessListener {
+//                newImage = it.toString()
+//            }
+//        }
+
         val mat = mapOf<String,Any>(
             "id" to generateRandomIdMaterial(),
             "name" to material.name,
@@ -67,10 +76,10 @@ class MaterialMemStore : MaterialStore {
             "weight" to material.weight,
             "price" to material.price,
             "image" to material.image.toString()
+            //"image" to material.image.toString()
         )
 
-//        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${material.name}")
-//        storageReference.putFile(material.image)
+
 
         database.child(material.name).setValue(mat)
 

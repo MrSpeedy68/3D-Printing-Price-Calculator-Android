@@ -5,15 +5,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.FirebaseApp
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
 import com.squareup.picasso.Picasso
 import org.wit.pricecalculator.R
 import org.wit.pricecalculator.databinding.ActivityMaterialBinding
@@ -21,7 +16,10 @@ import org.wit.pricecalculator.helpers.showImagePicker
 import org.wit.pricecalculator.main.MainApp
 import org.wit.pricecalculator.models.MaterialsModel
 import timber.log.Timber.i
-import com.google.firebase.ktx.Firebase
+
+
+
+
 
 
 class MaterialActivity : AppCompatActivity() {
@@ -40,6 +38,8 @@ class MaterialActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp
+
+
 
         if (intent.hasExtra("material_edit")) {
             edit = true
