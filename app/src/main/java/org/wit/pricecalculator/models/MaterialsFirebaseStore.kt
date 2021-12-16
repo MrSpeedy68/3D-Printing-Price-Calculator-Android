@@ -7,6 +7,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import timber.log.Timber.i
 import java.io.File
 import java.text.SimpleDateFormat
@@ -52,7 +53,7 @@ class MaterialMemStore : MaterialStore {
     override fun create(material: MaterialsModel) {
         database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
 
-        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${material.name}")
+        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${material.id}")
 
         var uploadTask = storageReference.putFile(material.image)
         var downloadUri = ""
@@ -94,55 +95,124 @@ class MaterialMemStore : MaterialStore {
 
     override fun update(material: MaterialsModel) {
         database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
-        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${material.name}")
+        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${material.id}")
 
-        var uploadTask = storageReference.putFile(material.image)
-        var downloadUri = ""
+        i ("++++++++++++++++++++++++++++")
+        i (material.image.toString())
+        i (storageReference.downloadUrl.toString())
 
-        uploadTask.continueWithTask { task ->
-            if (!task.isSuccessful) {
-                task.exception?.let {
-                    throw it
+        if (material.image != storageReference.downloadUrl) {
+            storageReference.delete()
+
+            var uploadTask = storageReference.putFile(material.image)
+
+            var downloadUri = ""
+
+            uploadTask.continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let {
+                        throw it
+                    }
                 }
-            }
-            storageReference.downloadUrl
-        }.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                downloadUri = task.result.toString()
+                storageReference.downloadUrl
+            }.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    downloadUri = task.result.toString()
 
-                i ("+_______________________________")
-                i (downloadUri)
+                    i ("+_______________________________")
+                    i (downloadUri)
 
-                val mat = mapOf<String,Any>(
-                    "id" to generateRandomIdMaterial(),
-                    "name" to material.name,
-                    "type" to material.type,
-                    "weight" to material.weight,
-                    "price" to material.price,
-                    "image" to downloadUri
-                )
+                    val mat = mapOf<String,Any>(
+                        "id" to generateRandomIdMaterial(),
+                        "name" to material.name,
+                        "type" to material.type,
+                        "weight" to material.weight,
+                        "price" to material.price,
+                        "image" to downloadUri
+                    )
 
-                database.get().addOnSuccessListener() {
-                    if (it.exists()) {
-                        for (m in it.children) {
-                            if (m.child("id").value == material.id) {
+                    database.get().addOnSuccessListener() {
+                        if (it.exists()) {
+                            for (m in it.children) {
+                                if (m.child("id").value == material.id) {
 
-                                //database.child(m.child("name").value.toString())
-                                database.child(m.child("name").value.toString()).removeValue()
-                                database.child(material.name).setValue(mat)
+                                    //database.child(m.child("name").value.toString())
+                                    database.child(m.child("name").value.toString()).removeValue()
+                                    database.child(material.name).setValue(mat)
 
+
+                                    initialize()
+                                }
                             }
                         }
                     }
+
+
+
+                } else {
+                    // Handle failures
+                    // ...
                 }
-
-                initialize()
-
-            } else {
-                // Handle failures
-                // ...
             }
         }
+        else
+        {
+            val mat = mapOf<String,Any>(
+                "id" to generateRandomIdMaterial(),
+                "name" to material.name,
+                "type" to material.type,
+                "weight" to material.weight,
+                "price" to material.price,
+                "image" to material.image
+            )
+
+            database.get().addOnSuccessListener() {
+                if (it.exists()) {
+                    for (m in it.children) {
+                        if (m.child("id").value == material.id) {
+
+                            //database.child(m.child("name").value.toString())
+                            database.child(m.child("name").value.toString()).removeValue()
+                            database.child(material.name).setValue(mat)
+
+
+                            initialize()
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+//        val mat = mapOf<String,Any>(
+//                    "id" to generateRandomIdMaterial(),
+//                    "name" to material.name,
+//                    "type" to material.type,
+//                    "weight" to material.weight,
+//                    "price" to material.price,
+//                    "image" to material.image.toString()
+//                )
+//
+//                database.get().addOnSuccessListener() {
+//                    if (it.exists()) {
+//                        for (m in it.children) {
+//                            if (m.child("id").value == material.id) {
+//
+//                                i (m.child("id").value.toString())
+//                                //database.child(m.child("name").value.toString())
+//                                database.child(m.child("name").value.toString()).removeValue()
+//                                database.child(material.name).setValue(mat)
+//
+//
+//                                initialize()
+//                            }
+//                        }
+//                    }
+//                }
     }
 
     override fun delete(material: MaterialsModel) {
@@ -150,7 +220,7 @@ class MaterialMemStore : MaterialStore {
 
         database.child(material.name).removeValue()
 
-        initialize()
+        materials.remove(material)
     }
 
     private fun logAll() {
