@@ -47,7 +47,7 @@ class UserMemStore : UserStore { //This class will be replaced once Google login
     override fun create(user: UserModel) {
         database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users")
 
-        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${user.userName}")
+        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${user.userId}")
 
         var uploadTask = storageReference.putFile(user.image)
         var downloadUri = ""
@@ -89,7 +89,7 @@ class UserMemStore : UserStore { //This class will be replaced once Google login
     override fun update(user: UserModel) {
         database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users")
 
-        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${user.userName}")
+        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${user.userId}")
         var uploadTask = storageReference.putFile(user.image)
         var downloadUri = ""
 

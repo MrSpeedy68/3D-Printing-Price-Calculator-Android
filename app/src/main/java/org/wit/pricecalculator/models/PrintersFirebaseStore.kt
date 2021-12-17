@@ -44,7 +44,7 @@ class PrintersMemStore : PrinterStore {
     override fun create(printer: PrinterModel) {
         database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Printers")
 
-        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${printer.name}")
+        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${printer.id}")
 
         var uploadTask = storageReference.putFile(printer.image)
         var downloadUri = ""
@@ -86,7 +86,7 @@ class PrintersMemStore : PrinterStore {
     override fun update(printer: PrinterModel) {
         database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Printers")
 
-        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${printer.name}")
+        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${printer.id}")
 
         var uploadTask = storageReference.putFile(printer.image)
         var downloadUri = ""

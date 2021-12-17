@@ -99,7 +99,7 @@ class MaterialMemStore : MaterialStore {
 
         i ("++++++++++++++++++++++++++++")
         i (material.image.toString())
-        i (storageReference.downloadUrl.toString())
+        i (Uri.parse(storageReference.downloadUrl.toString()).toString())
 
         if (material.image != storageReference.downloadUrl) {
             storageReference.delete()
