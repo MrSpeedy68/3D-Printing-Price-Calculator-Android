@@ -51,9 +51,11 @@ class MaterialMemStore : MaterialStore {
     }
 
     override fun create(material: MaterialsModel) {
+        var newId = generateRandomIdMaterial()
+
         database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Materials")
 
-        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${material.id}")
+        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${newId}")
 
         var uploadTask = storageReference.putFile(material.image)
         var downloadUri = ""
@@ -73,7 +75,7 @@ class MaterialMemStore : MaterialStore {
                 i (downloadUri)
 
                 val mat = mapOf<String,Any>(
-                    "id" to generateRandomIdMaterial(),
+                    "id" to newId,
                     "name" to material.name,
                     "type" to material.type,
                     "weight" to material.weight,

@@ -62,15 +62,6 @@ class TaskMemStore : TaskStore {
 
         database.child(task.customerName).setValue(tsk)
 
-
-        //                Toast.makeText(this, "Successfully Saved Material", Toast.LENGTH_SHORT).show()
-//
-//                setResult(RESULT_OK)
-//                finish()
-//            }.addOnFailureListener {
-//                Toast.makeText(this, "Failed to Save Material", Toast.LENGTH_SHORT).show()
-//            }
-
         initialize()
     }
 
@@ -101,11 +92,12 @@ class TaskMemStore : TaskStore {
                         database.child(t.child("name").value.toString()).removeValue()
                         database.child(task.customerName).setValue(tsk)
 
+                        initialize()
                     }
                 }
             }
         }
-        initialize()
+
     }
 
     override fun delete(task: TaskModel) {
@@ -113,7 +105,7 @@ class TaskMemStore : TaskStore {
 
         database.child(task.customerName).removeValue()
 
-        initialize()
+        tasks.remove(task)
     }
 
     private fun logAll() {

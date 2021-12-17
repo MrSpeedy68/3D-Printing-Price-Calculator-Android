@@ -45,9 +45,11 @@ class UserMemStore : UserStore { //This class will be replaced once Google login
     }
 
     override fun create(user: UserModel) {
+        var newId = generateRandomIdUser()
+
         database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users")
 
-        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${user.userId}")
+        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${newId}")
 
         var uploadTask = storageReference.putFile(user.image)
         var downloadUri = ""
@@ -67,7 +69,7 @@ class UserMemStore : UserStore { //This class will be replaced once Google login
                 i (downloadUri)
 
                 val usr = mapOf<String,Any>(
-                    "id" to generateRandomIdUser(),
+                    "id" to newId,
                     "name" to user.userName,
                     "labourcost" to user.labourCost,
                     "energycost" to user.energyCost,
@@ -126,11 +128,12 @@ class UserMemStore : UserStore { //This class will be replaced once Google login
                                 database.child(u.child("name").value.toString()).removeValue()
                                 database.child(user.userName).setValue(usr)
 
+                                initialize()
                             }
                         }
                     }
                 }
-                initialize()
+
             } else {
                 // Handle failures
                 // ...
@@ -143,7 +146,7 @@ class UserMemStore : UserStore { //This class will be replaced once Google login
 
         database.child(user.userName).removeValue()
 
-        initialize()
+        users.remove(user)
     }
 
     private fun logAll() {

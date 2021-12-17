@@ -42,9 +42,11 @@ class PrintersMemStore : PrinterStore {
     }
 
     override fun create(printer: PrinterModel) {
+        var newId = generateRandomIdPrinter()
+
         database = FirebaseDatabase.getInstance("https://d-printing-price-calculator-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Printers")
 
-        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${printer.id}")
+        val storageReference = FirebaseStorage.getInstance("gs://d-printing-price-calculator.appspot.com").getReference("images/${newId}")
 
         var uploadTask = storageReference.putFile(printer.image)
         var downloadUri = ""
@@ -64,7 +66,7 @@ class PrintersMemStore : PrinterStore {
                 i (downloadUri)
 
                 val prntr = mapOf<String,Any>(
-                    "id" to generateRandomIdPrinter(),
+                    "id" to newId,
                     "name" to printer.name,
                     "price" to printer.price,
                     "wattusage" to printer.wattUsage,
@@ -107,12 +109,12 @@ class PrintersMemStore : PrinterStore {
 
 
                 val prntr = mapOf<String,Any>(
-                    "id" to generateRandomIdPrinter(),
+                    "id" to printer.id,
                     "name" to printer.name,
                     "price" to printer.price,
                     "wattusage" to printer.wattUsage,
                     "investmentreturn" to printer.investmentReturn,
-                    "image" to printer.image.toString()
+                    "image" to downloadUri
                 )
 
                 database.get().addOnSuccessListener() {
@@ -124,11 +126,13 @@ class PrintersMemStore : PrinterStore {
                                 database.child(p.child("name").value.toString()).removeValue()
                                 database.child(printer.name).setValue(prntr)
 
+                                initialize()
+
                             }
                         }
                     }
                 }
-                initialize()
+
             } else {
                 // Handle failures
                 // ...
@@ -141,7 +145,7 @@ class PrintersMemStore : PrinterStore {
 
         database.child(printer.name).removeValue()
 
-        initialize()
+        printers.remove(printer)
     }
 
     private fun logAll() {

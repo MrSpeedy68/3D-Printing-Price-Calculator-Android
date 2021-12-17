@@ -40,7 +40,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-
                 <Button
                     android:id="@+id/btnMaterials"
                     android:layout_width="match_parent"
@@ -50,7 +49,7 @@
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
                     android:text="@string/button_materialMenu"
-                    android:textColor="#212121"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp" />
 
                 <Button
@@ -63,7 +62,7 @@
                     android:paddingBottom="8dp"
                     android:stateListAnimator="@null"
                     android:text="@string/button_printerMenu"
-                    android:textColor="#212121"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp" />
 
                 <Button
@@ -76,7 +75,7 @@
                     android:paddingBottom="8dp"
                     android:stateListAnimator="@null"
                     android:text="@string/button_userMenu"
-                    android:textColor="#212121"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp" />
 
                 <Button
@@ -102,7 +101,7 @@
                     android:paddingBottom="8dp"
                     android:stateListAnimator="@null"
                     android:text="@string/button_calculation"
-                    android:textColor="#212121"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp" />
 
             </LinearLayout>
