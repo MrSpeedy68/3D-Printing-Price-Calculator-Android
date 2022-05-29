@@ -9,11 +9,11 @@ import timber.log.Timber.log
 import java.util.*
 import kotlin.collections.ArrayList
 
-internal fun generateRandomIdUser(): Long {
-    return System.currentTimeMillis()
-}
+//internal fun generateRandomIdUser(): Long {
+//    return System.currentTimeMillis()
+//}
 
-class UserMemStore : UserStore { //This class will be replaced once Google login is implemented
+class UserFirebaseStore : UserStore { //This class will be replaced once Google login is implemented
 
     private lateinit var database: DatabaseReference
 

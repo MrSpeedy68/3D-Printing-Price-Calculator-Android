@@ -17,11 +17,6 @@ import org.wit.pricecalculator.main.MainApp
 import org.wit.pricecalculator.models.MaterialsModel
 import timber.log.Timber.i
 
-
-
-
-
-
 class MaterialActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMaterialBinding
     var material = MaterialsModel()
@@ -39,8 +34,6 @@ class MaterialActivity : AppCompatActivity() {
 
         app = application as MainApp
 
-
-
         if (intent.hasExtra("material_edit")) {
             edit = true
             material = intent.extras?.getParcelable("material_edit")!!
@@ -49,7 +42,6 @@ class MaterialActivity : AppCompatActivity() {
             binding.materialWeight.setText(material.weight.toString())
             binding.materialPrice.setText(material.price.toString())
             binding.btnAdd.text = getString(R.string.button_saveMaterial)
-
 
             Picasso.get()
                 .load(material.image)
@@ -86,7 +78,6 @@ class MaterialActivity : AppCompatActivity() {
         }
 
         registerImagePickerCallback()
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -122,4 +113,5 @@ class MaterialActivity : AppCompatActivity() {
                 }
             }
     }
+
 }

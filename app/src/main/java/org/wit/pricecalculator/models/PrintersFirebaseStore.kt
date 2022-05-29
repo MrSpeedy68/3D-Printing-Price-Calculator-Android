@@ -7,11 +7,11 @@ import com.google.firebase.storage.FirebaseStorage
 import timber.log.Timber.i
 import kotlin.collections.ArrayList
 
-internal fun generateRandomIdPrinter(): Long {
-    return System.currentTimeMillis()
-}
+//internal fun generateRandomIdPrinter(): Long {
+//    return System.currentTimeMillis()
+//}
 
-class PrintersMemStore : PrinterStore {
+class PrintersFirebaseStore : PrinterStore {
 
     private lateinit var database: DatabaseReference
 
